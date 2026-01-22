@@ -6,47 +6,74 @@ import './App.css';
 const scenes = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1582215979946-857A441a4a3e?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    type: 'image',
+    image: 'https://picsum.photos/seed/eum/1920/1080',
     title: '愛媛大学ミュージアムへようこそ',
     description: '地球と生命の46億年の歴史を、その手で感じてください。',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1599511634901-d6a1310d6c6f?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    type: 'image',
+    image: 'https://picsum.photos/seed/insects/1920/1080',
     title: '四国の昆虫標本',
     description: '地域固有の種から希少種まで、多様な昆虫の世界を探検します。',
   },
   {
+    id: 7,
+    type: 'image',
+    image: 'https://picsum.photos/seed/dna/1920/1080',
+    title: '生命の進化',
+    description: '分子レベルから見る、生命の起源と進化の軌跡。',
+  },
+  {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1623439976769-23473b98357f?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    type: 'image',
+    image: 'https://picsum.photos/seed/fossils/1920/1080',
     title: '化石が語る物語',
     description: 'アンモナイトや三葉虫の化石から、太古の海の様子を紐解きます。',
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1611628335239-2d83e223ee18?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    type: 'image',
+    image: 'https://picsum.photos/seed/minerals/1920/1080',
     title: '鉱物の結晶美',
     description: '自然が創り出した完璧な形状と、息をのむほどの色彩をご覧ください。',
   },
   {
     id: 5,
-    image: 'https://images.unsplash.com/photo-1587321422791-1c409c9f2015?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    type: 'image',
+    image: 'https://picsum.photos/seed/plants/1920/1080',
     title: '瀬戸内の植物',
     description: '愛媛の豊かな自然が育んだ、美しい植物の標本を展示しています。',
   },
   {
     id: 6,
-    image: 'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    type: 'image',
+    image: 'https://picsum.photos/seed/info/1920/1080',
     title: 'ご利用案内',
     description: '開館時間: 10:00-16:30 (入館は16:00まで) / 休館日: 土日祝日',
   },
 ];
 
-const KenBurnsImage = ({ src, active }) => {
+const SceneContent = ({ scene, active }) => {
+  if (scene.type === 'video') {
+    return (
+      <video
+        className="video-background"
+        src={scene.video}
+        autoPlay
+        muted
+        loop
+        playsInline
+        key={scene.id}
+      />
+    );
+  }
+
   return (
     <motion.div
       className="ken-burns-image"
-      style={{ backgroundImage: `url(${src})` }}
+      style={{ backgroundImage: `url(${scene.image})` }}
       initial={{ scale: 1, x: 0, y: 0 }}
       animate={active ? { scale: [1.1, 1], x: [10, -10], y: [-10, 10] } : {}}
       transition={{ duration: 20, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
@@ -154,7 +181,7 @@ function App() {
           {...bind()}
           style={{ touchAction: 'none' }}
         >
-          <KenBurnsImage src={scenes[index].image} active={!isPaused} />
+          <SceneContent scene={scenes[index]} active={!isPaused} />
           <div className="overlay">
             <h1 className="title">{scenes[index].title}</h1>
             <p className="description">{scenes[index].description}</p>

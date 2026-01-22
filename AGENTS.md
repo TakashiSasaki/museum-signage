@@ -25,7 +25,7 @@ The aesthetic must be **"Academic, Authentic, and Calm"**.
 
 - **Typography**:
   - MUST use Serif fonts for a museum-grade look.
-  - Font Family: `"Yu Mincho", "Hiragino Mincho ProN", serif`.
+  - Font Family: `'Shippori Mincho', 'serif'`.
 - **Color Palette**:
   - Background: Deep Black (`#000` or `#111`) to blend with the display bezel.
   - Text: White (`#FFF`) or Off-White (`#F0F0F0`).
@@ -41,25 +41,23 @@ The aesthetic must be **"Academic, Authentic, and Calm"**.
 
 ## 4. Data Structure (SCENES Schema)
 
-The application content is driven by a `SCENES` constant.
+The application content is driven by a `scenes` constant.
 Modifications must adhere to this schema:
 
 ```javascript
 {
   id: number,
   type: 'image' | 'video',
-  src: string,
+  image?: string, // For image scenes
+  video?: string, // For video scenes
   title: string,     // Main heading (e.g., "Biodiversity")
-  subtitle: string,  // Sub heading (e.g., "Insects of Shikoku")
-  duration?: number, // Required for 'image' (ms)
-  autoAdvance?: boolean // Required for 'video' (true)
+  description: string,  // Sub heading (e.g., "Insects of Shikoku")
 }
 ```
 
 ## 5. Interaction Logic
 
-- **Auto-Play**: The sequence advances automatically based on `duration` (image)
-  or `onEnded` (video).
+- **Auto-Play**: The sequence advances automatically based on a global timer.
 - **Touch Pause**: While the user is touching/pressing the screen, the
   auto-advance timer MUST pause.
 - **Swipe**: Left/Right swipes must navigate to Next/Prev scenes immediately.

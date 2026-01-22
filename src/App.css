@@ -4,7 +4,7 @@
   height: 100vh;
   background-color: #000;
   overflow: hidden;
-  font-family: 'Shippori Mincho', 'serif'; /* Google Fontsの明朝体 */
+  font-family: 'Shippori Mincho', 'serif';
   color: white;
 }
 
@@ -12,9 +12,6 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
 .ken-burns-image {
@@ -27,23 +24,34 @@
   background-position: center;
 }
 
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .overlay {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, transparent);
-  padding: 8vh 5vw 10vh; /* 縦長画面用に調整 */
+  padding: 8vh 5vw 10vh;
   box-sizing: border-box;
 }
 
 .title {
-  font-size: 8vh; /* 縦長画面用に調整 */
+  font-size: 8vh;
   margin-bottom: 2vh;
   font-weight: 600;
   text-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .description {
-  font-size: 4vh; /* 縦長画面用に調整 */
+  font-size: 4vh;
   line-height: 1.6;
   max-width: 90%;
 }
@@ -63,5 +71,4 @@
   box-shadow: 0 0 10px #fff;
 }
 
-/* Google Fontsの読み込み */
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&display=swap');
