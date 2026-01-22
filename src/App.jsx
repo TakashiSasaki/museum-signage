@@ -98,6 +98,20 @@ const ProgressBar = ({ duration, isPaused, onComplete }) => {
 function App() {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isFocused, setIsFocused] = useState(true);
+
+  useEffect(() => {
+    const handleFocus = () => setIsFocused(true);
+    const handleBlur = () => setIsFocused(false);
+
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
+    };
+  }, []);
 
   const DURATION = 10;
 
@@ -165,6 +179,11 @@ function App() {
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={() => setIsPaused(false)}
     >
+        {isFocused && (
+        <svg className="marching-ants-svg">
+          <rect width="100%" height="100%" />
+        </svg>
+      )}
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={index}
@@ -190,9 +209,9 @@ function App() {
       </AnimatePresence>
       <ProgressBar 
         key={index}
-        duration={DURATION} 
+        duration={DURATION}
         isPaused={isPaused}
-        onComplete={() => !isPaused && handleNextScene()} 
+        onComplete={() => !isPaused && handleNextScene()}
       />
     </div>
   );
