@@ -78,6 +78,20 @@ function App() {
     setIndex((prevIndex) => (prevIndex === scenes.length - 1 ? 0 : prevIndex + 1));
   };
   
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowRight') {
+        handleNextScene();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   const bind = useDrag(({ down, movement: [mx], direction: [xDir], distance, cancel, memo = index }) => {
     if (down && distance > window.innerWidth / 4) {
       const direction = xDir > 0 ? -1 : 1;
@@ -138,6 +152,7 @@ function App() {
           }}
           className="scene"
           {...bind()}
+          style={{ touchAction: 'none' }}
         >
           <KenBurnsImage src={scenes[index].image} active={!isPaused} />
           <div className="overlay">
