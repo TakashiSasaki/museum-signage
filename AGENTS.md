@@ -38,6 +38,7 @@ The aesthetic must be **"Academic, Authentic, and Calm"**.
 - **UI Behavior**:
   - **Cursor**: Hidden (`cursor: none`) on the main container.
   - **Navigation**: Dot indicators or progress bars at the bottom.
+  - **Focus Indicator**: A "marching ants" animated border is displayed when the window has focus.
 
 ## 4. Data Structure (SCENES Schema)
 
