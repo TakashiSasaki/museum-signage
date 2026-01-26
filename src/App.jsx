@@ -11,6 +11,7 @@ const scenes = [
     image: 'https://picsum.photos/seed/eum/1920/1080',
     title: '愛媛大学ミュージアムへようこそ',
     description: '地球と生命の46億年の歴史を、その手で感じてください。',
+    audio: '/hello.mp3',
   },
   {
     id: 2,
@@ -101,6 +102,7 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [isFocused, setIsFocused] = useState(true);
   const refConfetti = useRef(null);
+  const audioRef = useRef(null);
 
   const getInstance = useCallback((instance) => {
     refConfetti.current = instance;
@@ -156,6 +158,20 @@ function App() {
       window.removeEventListener('blur', handleBlur);
     };
   }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
+
+    const currentScene = scenes[index];
+    if (currentScene.audio) {
+      const audio = new Audio(currentScene.audio);
+      audio.play().catch(error => console.error("Audio playback failed:", error));
+      audioRef.current = audio;
+    }
+  }, [index]);
 
   const DURATION = 10;
 
