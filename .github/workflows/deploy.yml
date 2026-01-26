@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Add this line to grant write permissions
     steps:
       - name: Checkout
         uses: actions/checkout@v3
