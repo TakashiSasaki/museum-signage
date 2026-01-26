@@ -182,15 +182,29 @@ function App() {
   }, [index]);
 
   const DURATION = 10;
+  const [direction, setDirection] = useState(1);
 
-  const handleNextScene = () => {
-    setIndex((prevIndex) => (prevIndex === scenes.length - 1 ? 0 : prevIndex + 1));
+  const changeScene = (newDirection) => {
+    const newIndex = index + newDirection;
+    if (newIndex < 0) {
+      setIndex(scenes.length - 1);
+    } else if (newIndex >= scenes.length) {
+      setIndex(0);
+    } else {
+      setIndex(newIndex);
+    }
+    setDirection(newDirection);
   };
-  
+
+  const handleNextScene = () => changeScene(1);
+  const handlePrevScene = () => changeScene(-1);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'ArrowRight') {
         handleNextScene();
+      } else if (event.key === 'ArrowLeft') {
+        handlePrevScene();
       }
     };
 
@@ -199,18 +213,13 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [index]);
 
   const bind = useGesture({
     onDrag: ({ down, movement: [mx], direction: [xDir], distance, cancel, memo = index }) => {
       if (down && distance > window.innerWidth / 4) {
         const direction = xDir > 0 ? -1 : 1;
-        setIndex((prevIndex) => {
-          const newIndex = prevIndex + direction;
-          if (newIndex < 0) return scenes.length - 1;
-          if (newIndex >= scenes.length) return 0;
-          return newIndex;
-        });
+        changeScene(direction);
         cancel();
       }
       return memo;
@@ -237,13 +246,6 @@ function App() {
     }),
   };
 
-  const [direction, setDirection] = useState(1);
-
-  const paginate = (newDirection) => {
-    setDirection(newDirection);
-    setIndex(index + newDirection);
-  };
-  
   return (
     <div
       className="App"
@@ -283,8 +285,22 @@ function App() {
           </div>
         </motion.div>
       </AnimatePresence>
+      <div
+        className="nav-button prev-button"
+        onClick={(e) => {
+          e.stopPropagation();
+          handlePrevScene();
+        }}
+      />
+      <div
+        className="nav-button next-button"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleNextScene();
+        }}
+      />
       <ProgressBar 
-        key={index}
+        key={index + '-' + direction} // Ensure progress bar resets on nav
         duration={DURATION}
         isPaused={isPaused}
         onComplete={() => !isPaused && handleNextScene()}

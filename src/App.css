@@ -99,4 +99,52 @@
   box-shadow: 0 0 10px #fff;
 }
 
+.nav-button {
+  position: absolute;
+  bottom: 5vh;
+  z-index: 100;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Explicitly set cursor for buttons */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.nav-button::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+}
+
+.prev-button {
+  left: 5vw;
+}
+
+.next-button {
+  right: 5vw;
+}
+
+.prev-button::before {
+  transform: translateX(2px) rotate(-135deg);
+}
+
+.next-button::before {
+  transform: translateX(-2px) rotate(45deg);
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&display=swap');
