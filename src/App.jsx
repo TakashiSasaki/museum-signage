@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useDrag } from '@use-gesture/react';
+import { useGesture } from '@use-gesture/react';
+import ReactCanvasConfetti from 'react-canvas-confetti';
 import './App.css';
 
 const scenes = [
@@ -99,6 +100,49 @@ function App() {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isFocused, setIsFocused] = useState(true);
+  const refConfetti = useRef(null);
+
+  const getInstance = useCallback((instance) => {
+    refConfetti.current = instance;
+  }, []);
+
+  const makeShot = useCallback((particleRatio, opts) => {
+    refConfetti.current &&
+      refConfetti.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(200 * particleRatio),
+      });
+  }, []);
+
+  const fire = useCallback(() => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55,
+    });
+
+    makeShot(0.2, {
+      spread: 60,
+    });
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8,
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2,
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45,
+    });
+  }, [makeShot]);
 
   useEffect(() => {
     const handleFocus = () => setIsFocused(true);
@@ -133,18 +177,23 @@ function App() {
     };
   }, []);
 
-  const bind = useDrag(({ down, movement: [mx], direction: [xDir], distance, cancel, memo = index }) => {
-    if (down && distance > window.innerWidth / 4) {
-      const direction = xDir > 0 ? -1 : 1;
-      setIndex((prevIndex) => {
-        const newIndex = prevIndex + direction;
-        if (newIndex < 0) return scenes.length - 1;
-        if (newIndex >= scenes.length) return 0;
-        return newIndex;
-      });
-      cancel();
-    }
-    return memo;
+  const bind = useGesture({
+    onDrag: ({ down, movement: [mx], direction: [xDir], distance, cancel, memo = index }) => {
+      if (down && distance > window.innerWidth / 4) {
+        const direction = xDir > 0 ? -1 : 1;
+        setIndex((prevIndex) => {
+          const newIndex = prevIndex + direction;
+          if (newIndex < 0) return scenes.length - 1;
+          if (newIndex >= scenes.length) return 0;
+          return newIndex;
+        });
+        cancel();
+      }
+      return memo;
+    },
+    onLongPress: () => {
+      fire();
+    },
   });
 
   const variants = {
@@ -178,7 +227,10 @@ function App() {
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={() => setIsPaused(false)}
+      onClick={handleNextScene}
+      onContextMenu={(e) => e.preventDefault()}
     >
+      <ReactCanvasConfetti refConfetti={getInstance} style={{ zIndex: 1000, position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }} />
         {isFocused && (
         <svg className="marching-ants-svg">
           <rect width="100%" height="100%" />
