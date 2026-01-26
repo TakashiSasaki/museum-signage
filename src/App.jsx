@@ -175,7 +175,7 @@ function App() {
     const currentScene = scenes[index];
     if (currentScene.audio) {
       const audio = new Audio(currentScene.audio);
-      audio.volume = 0.2; // Set volume to 20%
+      audio.volume = 0.05; // Set volume to 5%
       audio.play().catch(error => console.error("Audio playback failed:", error));
       audioRef.current = audio;
     }
