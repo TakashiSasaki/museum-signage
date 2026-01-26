@@ -14,6 +14,13 @@ const scenes = [
     audio: '/hello.mp3',
   },
   {
+    id: 8, // New video scene
+    type: 'video',
+    video: '/sample.mp4',
+    title: '紹介動画',
+    description: '博物館の紹介動画です。'
+  },
+  {
     id: 2,
     type: 'image',
     image: 'https://picsum.photos/seed/insects/1920/1080',
@@ -168,6 +175,7 @@ function App() {
     const currentScene = scenes[index];
     if (currentScene.audio) {
       const audio = new Audio(currentScene.audio);
+      audio.volume = 0.2; // Set volume to 20%
       audio.play().catch(error => console.error("Audio playback failed:", error));
       audioRef.current = audio;
     }
