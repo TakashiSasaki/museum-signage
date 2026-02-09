@@ -22,6 +22,7 @@ The application's aesthetic is critical. It must feel like a natural extension o
 - **Typography**: The primary font is 'Shippori Mincho', a serif font that evokes a sense of tradition and elegance.
 - **Color Palette**: The core color scheme is dark and atmospheric, using a radial gradient from `#1b2735` to `#090a0f` to create depth. White text provides high contrast.
 - **Layout**: The layout must be clean, intuitive, and visually balanced.
+  - **Target Display**: The application is designed and optimized for a **portrait-oriented Full HD display (1080px width by 1920px height)**. While the layout is fluid, this is the primary aspect ratio for which all design decisions are made.
   - **Home Screen**: A full-screen, portrait-oriented layout presents four large, clickable panels. This design is non-negotiable and all styling must support this structure.
   - **Scene View**: Content is displayed full-screen with overlayed text for titles and descriptions.
 
