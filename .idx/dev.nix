@@ -29,9 +29,6 @@
       # onStart = {
       #   npm-install = "npm i --no-audit --no-progress --timing";
       # };
-
-      # Open editors for the following files by default, if they exist:
-      openFiles = [ "src/App.jsx" ];
     };
 
     # Enable previews and customize configuration
