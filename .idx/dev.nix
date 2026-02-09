@@ -3,28 +3,37 @@
 { pkgs, ... }: {
   # Which nixpkgs channel to use.
   channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
+
+  # Use https://search.nixos.org/packages to find packages.
+  # We've included nodejs-20 and a formatter that you can use for this file.
   packages = [
-    pkgs.nodejs_20,
-    pkgs.nixpkgs-fmt,
+    pkgs.nodejs_20
+    pkgs.nixpkgs-fmt
   ];
-  # Sets environment variables in the workspace
+
+  # Sets environment variables in the workspace.
   env = { };
+
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
-      # "vscodevim.vim"
       "google.gemini-cli-vscode-ide-companion"
     ];
+
     workspace = {
-      # Runs when a workspace is first created with this `dev.nix` file
+      # Runs when a workspace is first created with this `dev.nix` file.
       onCreate = {
         npm-install = "npm i --no-audit --no-progress --timing";
       };
+      # To run something each time the workspace is (re)started, use the `onStart` hook.
+      # onStart = {
+      #   npm-install = "npm i --no-audit --no-progress --timing";
+      # };
+
       # Open editors for the following files by default, if they exist:
-      openFiles = [ "src/App.tsx" "src/App.ts" "src/App.jsx" "src/App.js" ];
-      # To run something each time the workspace is (re)started, use the `onStart` hook
+      openFiles = [ "src/App.jsx" ];
     };
+
     # Enable previews and customize configuration
     previews = {
       enable = true;
