@@ -7,8 +7,6 @@
   packages = [
     pkgs.nodejs_20,
     pkgs.gh,
-    pkgs.python311,
-    pkgs.python311Packages.pip,
     pkgs.nixpkgs-fmt,
   ];
   # Sets environment variables in the workspace
