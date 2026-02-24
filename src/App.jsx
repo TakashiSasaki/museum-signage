@@ -23,7 +23,7 @@ const timelines = {
 };
 
 // Brochure-style background image
-const brochureBackground = 'https://picsum.photos/seed/brochure/2160/3840';
+const brochureBackground = '/cover.jpg';
 
 const hotspotPositions = [
   { top: '20%', left: '25%' },
