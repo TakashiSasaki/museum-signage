@@ -22,30 +22,41 @@ const timelines = {
   ],
 };
 
-// HomeScreen no longer renders the outer div. It returns a fragment.
+// Brochure-style background image
+const brochureBackground = 'https://picsum.photos/seed/brochure/2160/3840';
+
+const hotspotPositions = [
+  { top: '20%', left: '25%' },
+  { top: '20%', left: '75%' },
+  { top: '70%', left: '25%' },
+  { top: '70%', left: '75%' },
+];
+
 const HomeScreen = ({ onSelectTimeline, timelines }) => (
-  <>
-    <h1 className="home-title">物語を選択</h1>
-    <div className="panel-container">
-      {Object.keys(timelines).map((timelineId, index) => {
-        const timeline = timelines[timelineId];
-        const panelImage = timeline[0].type === 'image' ? timeline[0].image : ''; // Use first image as background
-        return (
-          <div
-            key={timelineId}
-            className="panel"
-            onClick={() => onSelectTimeline(timelineId)}
-            style={{ backgroundImage: `url(${panelImage})` }}
-          >
-            <div className="panel-overlay">
-              <h2>Timeline {index + 1}</h2>
-              <span className="hand-icon">🤚</span>
+  <div className="brochure-container" style={{ backgroundImage: `url(${brochureBackground})` }}>
+    <h1 className="home-title overlay-title">物語を選択</h1>
+    {Object.keys(timelines).map((timelineId, index) => {
+      const pos = hotspotPositions[index];
+      return (
+        <div
+          key={timelineId}
+          className="hotspot"
+          onClick={() => onSelectTimeline(timelineId)}
+          style={{
+            top: pos.top,
+            left: pos.left,
+          }}
+        >
+          <div className="hotspot-content">
+            <span className="hand-icon hotspot-hand">🤚</span>
+            <div className="hotspot-label">
+              <h2>Story {index + 1}</h2>
             </div>
           </div>
-        );
-      })}
-    </div>
-  </>
+        </div>
+      );
+    })}
+  </div>
 );
 
 const TimelineIndicator = ({ total, current }) => (

@@ -23,7 +23,7 @@ The application's aesthetic is critical. It must feel like a natural extension o
 - **Color Palette**: The core color scheme is dark and atmospheric, using a radial gradient from `#1b2735` to `#090a0f` to create depth. White text provides high contrast.
 - **Layout**: The layout must be clean, intuitive, and visually balanced.
   - **Target Display**: The application is designed and optimized for a **portrait-oriented 4K display (2160px width by 3840px height)**. While the layout is fluid, this is the primary aspect ratio for which all design decisions are made.
-  - **Home Screen**: A full-screen, portrait-oriented layout presents four large, clickable panels. This design is non-negotiable and all styling must support this structure.
+  - **Home Screen**: A full-screen, portrait-oriented layout featuring a single background image (brochure style) with four distinct touch hotspots. Each hotspot is marked with a large animated hand icon to invite user interaction. This design is optimized for a 2160x3840 4K display.
   - **Scene View**: Content is displayed full-screen with overlayed text for titles and descriptions.
 
 ## 4. Data Structure (Timelines & Scenes)
