@@ -7,6 +7,32 @@
   overflow: hidden;
   font-family: 'Shippori Mincho', serif;
   color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 8;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-banner {
+  flex: 2;
+  background: #fff;
+  /* White background to make logo pop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.footer-placeholder {
+  color: #333;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.8rem;
 }
 
 #root,

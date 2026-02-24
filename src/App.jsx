@@ -248,70 +248,76 @@ function App() {
           <rect width="100%" height="100%" />
         </svg>
       )}
-      <AnimatePresence initial={false}>
-        {!currentTimeline ? (
-          <motion.div
-            key="home"
-            className="home-screen" // The className is now on the motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <HomeScreen onSelectTimeline={handleSelectTimeline} timelines={timelines} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key={sceneIndex}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.5 },
-            }}
-            className="scene"
-            {...bind()}
-            style={{ touchAction: 'none' }}
-          >
-            <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
-            <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
-            <div className="overlay">
-              <h1 className="title">{currentScene.title}</h1>
-              <p className="description">{currentScene.description}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {currentTimeline && (
-        <>
-          <button
-            className="nav-button prev-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePrevScene();
-            }}
-            aria-label="Previous Scene"
-          />
-          <button
-            className="nav-button next-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleNextScene();
-            }}
-            aria-label="Next Scene"
-          />
-          {currentScene.type === 'image' && (
-            <ProgressBar
-              key={currentTimeline + '-' + sceneIndex}
-              duration={DURATION}
-              isPaused={isPaused}
-              onComplete={() => !isPaused && handleNextScene()}
-            />
+      <div className="main-content">
+        <AnimatePresence initial={false}>
+          {!currentTimeline ? (
+            <motion.div
+              key="home"
+              className="home-screen" // The className is now on the motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <HomeScreen onSelectTimeline={handleSelectTimeline} timelines={timelines} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key={sceneIndex}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.5 },
+              }}
+              className="scene"
+              {...bind()}
+              style={{ touchAction: 'none' }}
+            >
+              <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
+              <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
+              <div className="overlay">
+                <h1 className="title">{currentScene.title}</h1>
+                <p className="description">{currentScene.description}</p>
+              </div>
+            </motion.div>
           )}
-        </>
-      )}
+        </AnimatePresence>
+        {currentTimeline && (
+          <>
+            <button
+              className="nav-button prev-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevScene();
+              }}
+              aria-label="Previous Scene"
+            />
+            <button
+              className="nav-button next-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextScene();
+              }}
+              aria-label="Next Scene"
+            />
+            {currentScene.type === 'image' && (
+              <ProgressBar
+                key={currentTimeline + '-' + sceneIndex}
+                duration={DURATION}
+                isPaused={isPaused}
+                onComplete={() => !isPaused && handleNextScene()}
+              />
+            )}
+          </>
+        )}
+      </div>
+      <div className="footer-banner">
+        {/* Logo image will be placed here */}
+        <div className="footer-placeholder">CORPORATE LOGO AREA</div>
+      </div>
     </div>
   );
 }
