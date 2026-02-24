@@ -82,7 +82,6 @@ const hotspotPositions = [
 
 const HomeScreen = ({ onSelectTimeline, timelines }) => (
   <div className="brochure-container" style={{ backgroundImage: `url(${brochureBackground})` }}>
-    <h1 className="home-title overlay-title">物語を選択</h1>
     {Object.keys(timelines).map((timelineId, index) => {
       const pos = hotspotPositions[index];
       return (
