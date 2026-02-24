@@ -8,7 +8,9 @@ const ASSETS_TO_CACHE = [
     './space.jpg',
     './bio.jpg',
     './robot.jpg',
-    './energy.jpg'
+    './energy.jpg',
+    './icon-192.png',
+    './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
