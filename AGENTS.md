@@ -118,3 +118,18 @@ In standard Git Bash / Linux:
 git push github `git subtree split --prefix dist main`:gh-pages --force
 ```
 
+## Windows Command Line Tips (PowerShell)
+
+During development on Windows, several shell-specific issues were encountered. Note the following for future tasks:
+
+1.  **Command Substitution**: PowerShell does not support backticks (`` ` ``) for command execution/substitution. Use the `$()` syntax instead.
+    - *Bash:* `` `cmd` ``
+    - *PowerShell:* `$(cmd)`
+2.  **Bun Path**: If `bun` is not in the system PATH, use the full path: `C:\Users\takas\.bun\bin\bun.exe`.
+3.  **Command Chaining**: When using `;` or `&&` to chain commands that include variables (like `$hash`), ensure the variables are defined and used within the same session. 
+4.  **Quote Escaping**: Avoid complex nested quoting in `powershell -Command "..."` strings. It's safer to run commands directly in the shell or use a script file.
+5.  **Git Subtree in PowerShell**: To force-deploy a subtree, the variable assignment method is most reliable:
+    ```powershell
+    $hash = git subtree split --prefix dist main; git push github "${hash}:gh-pages" --force
+    ```
+
