@@ -23,13 +23,13 @@ const timelines = {
 };
 
 // Brochure-style background image
-const brochureBackground = '/cover.jpg';
+const brochureBackground = '/image.png';
 
 const hotspotPositions = [
-  { top: '20%', left: '25%' },
-  { top: '20%', left: '75%' },
-  { top: '70%', left: '25%' },
-  { top: '70%', left: '75%' },
+  { top: '25%', left: '25%' }, // Universe (Top Left)
+  { top: '25%', left: '75%' }, // Biology (Top Right)
+  { top: '75%', left: '25%' }, // AI/Robotics (Bottom Left)
+  { top: '75%', left: '75%' }, // Green Energy (Bottom Right)
 ];
 
 const HomeScreen = ({ onSelectTimeline, timelines }) => (
