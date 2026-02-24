@@ -23,7 +23,7 @@ const timelines = {
 };
 
 // Brochure-style background image
-const brochureBackground = '/image.png';
+const brochureBackground = 'image.png';
 
 const hotspotPositions = [
   { top: '25%', left: '25%' }, // Universe (Top Left)
