@@ -85,3 +85,20 @@ A major layout issue was encountered where panels on the home screen would rende
     2.  The problematic intermediate wrapper (`<motion.div>`) was given the `className="home-screen"` directly.
 
 -   **Key Takeaway:** When debugging layout issues where elements mysteriously have zero height, **always inspect the full DOM hierarchy in the browser's developer tools.** Look for intermediate wrapper elements that may be breaking the `height: 100%` inheritance chain. The solution often lies in refactoring the component structure, not just the stylesheet.
+
+## Deployment
+
+The application is deployed to GitHub Pages using the `gh-pages` branch. Since the `dist` folder is tracked in the repository, we use `git subtree` to push only the built assets.
+
+### Deployment Command
+```bash
+bun run deploy
+```
+*This runs: `git subtree push --prefix dist github gh-pages`*
+
+### Troubleshooting Deployment
+If you encounter a "non-fast-forward" error during deploy, it means the remote `gh-pages` branch has diverged. Since `dist` is a generated state, you can force-overwrite the remote branch with the current `dist` content using:
+```bash
+git push github `git subtree split --prefix dist main`:gh-pages --force
+```
+
