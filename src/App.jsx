@@ -39,7 +39,7 @@ const HomeScreen = ({ onSelectTimeline, timelines }) => (
           >
             <div className="panel-overlay">
               <h2>Timeline {index + 1}</h2>
-              <span className="hand-icon">👇</span>
+              <span className="hand-icon">🤚</span>
             </div>
           </div>
         );

@@ -101,7 +101,7 @@ html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 4rem;
+  font-size: 12rem;
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
   animation: pulse-hand 2s ease-in-out infinite;
   pointer-events: none;
