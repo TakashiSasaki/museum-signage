@@ -201,21 +201,21 @@ html {
   left: 0;
   width: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, transparent);
-  padding: 6vh 8vw;
+  padding: 4vh 6vw;
   box-sizing: border-box;
 }
 
 .title {
-  font-size: 6vh;
+  font-size: 3vh;
   margin-bottom: 2vh;
   font-weight: 600;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .description {
-  font-size: 3vh;
+  font-size: 1.6vh;
   line-height: 1.6;
-  max-width: 90%;
+  max-width: 85%;
 }
 
 .progress-bar-container {
