@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
-    "commit": "cz"
+    "commit": "cz",
+    "deploy": "git subtree push --prefix dist github gh-pages"
   },
   "dependencies": {
     "@use-gesture/react": "^10.3.1",
