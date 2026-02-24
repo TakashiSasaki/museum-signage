@@ -315,8 +315,16 @@ function App() {
         )}
       </div>
       <div className="footer-banner">
-        {/* Logo image will be placed here */}
-        <div className="footer-placeholder">CORPORATE LOGO AREA</div>
+        <div className="footer-content">
+          <div className="footer-logo-section">
+            <h2 className="footer-company-name">NEXUS</h2>
+            <p className="footer-tagline">Museum of Science & Technology</p>
+          </div>
+          <div className="footer-qr-section">
+            <img src="qrcode.png" alt="QR Code" className="footer-qr-code" />
+            <p className="footer-qr-text">Visit our Website</p>
+          </div>
+        </div>
       </div>
     </div>
   );
