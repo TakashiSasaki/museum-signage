@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGesture } from '@use-gesture/react';
 import './App.css';
+import { requestForToken, onMessageListener } from './firebase';
 
 const timelines = {
   timeline1: [
@@ -155,11 +156,75 @@ const ProgressBar = ({ duration, isPaused, onComplete }) => {
   );
 };
 
+const NotificationToast = ({ notification, onClose }) => {
+  if (!notification.title) {
+    return null;
+  }
+
+  return (
+    <motion.div
+      className="notification-toast"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -100, opacity: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+    >
+      <h4>{notification.title}</h4>
+      <p>{notification.body}</p>
+      <button onClick={onClose} className="notification-close-button">&times;</button>
+    </motion.div>
+  );
+};
+
 function App() {
   const [currentTimeline, setCurrentTimeline] = useState(null);
   const [sceneIndex, setSceneIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isFocused, setIsFocused] = useState(true);
+  const [showNotificationButton, setShowNotificationButton] = useState(false);
+  const [notificationToast, setNotificationToast] = useState({});
+
+  useEffect(() => {
+    if (typeof Notification !== 'undefined') {
+        if (Notification.permission === 'granted') {
+            console.log('Notification permission already granted.');
+            setShowNotificationButton(false);
+        } else if (Notification.permission !== 'denied') {
+            console.log('Notification permission not denied, showing button.');
+            setShowNotificationButton(true);
+        } else {
+            console.log('Notification permission denied.');
+            setShowNotificationButton(false);
+        }
+    }
+
+
+    onMessageListener()
+      .then(payload => {
+        setNotificationToast({title: payload.notification.title, body: payload.notification.body});
+      })
+      .catch(err => console.log('failed: ', err));
+  }, []);
+
+  useEffect(() => {
+    if (notificationToast.title) {
+      const timer = setTimeout(() => {
+        setNotificationToast({});
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [notificationToast]);
+
+  const handleRequestPermission = () => {
+    requestForToken()
+      .then(() => {
+        console.log('Notification permission granted.');
+        setShowNotificationButton(false);
+      })
+      .catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+      });
+  };
 
   const handleSelectTimeline = (timelineId) => {
     setCurrentTimeline(timelineId);
@@ -242,6 +307,14 @@ function App() {
       onTouchEnd={() => setIsPaused(false)}
       onContextMenu={(e) => e.preventDefault()}
     >
+      <AnimatePresence>
+        {notificationToast.title && (
+          <NotificationToast
+            notification={notificationToast}
+            onClose={() => setNotificationToast({})}
+          />
+        )}
+      </AnimatePresence>
       {isFocused && (
         <svg className="marching-ants-svg">
           <rect width="100%" height="100%" />
@@ -319,6 +392,13 @@ function App() {
             <h2 className="footer-company-name">NEXUS</h2>
             <p className="footer-tagline">Museum of Science & Technology</p>
           </div>
+          {showNotificationButton && (
+             <div className="footer-notification-section">
+                <button onClick={handleRequestPermission} className="notification-button">
+                  通知を有効にする
+                </button>
+              </div>
+          )}
           <div className="footer-qr-section">
             <img src="qrcode.png" alt="QR Code" className="footer-qr-code" />
             <p className="footer-qr-text">Visit our Website</p>

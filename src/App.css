@@ -348,3 +348,72 @@ html {
 .next-button::before {
   transform: translateX(-2px) rotate(45deg);
 }
+
+/* Notification Toast */
+.notification-toast {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  z-index: 200;
+  border-left: 4px solid #00aaff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  width: 300px;
+}
+
+.notification-toast h4 {
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.notification-toast p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.notification-close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.notification-close-button:hover {
+  opacity: 1;
+}
+
+/* Footer Notification Section */
+.footer-notification-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #090a0f;
+}
+
+.notification-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 2.5vh;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.notification-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
