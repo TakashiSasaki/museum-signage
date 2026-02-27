@@ -5,46 +5,105 @@ import './App.css';
 
 const timelines = {
   timeline1: [
-    { id: 1, type: 'image', image: 'https://picsum.photos/seed/timeline1-1/1920/1080', title: 'Timeline 1 - Scene 1', description: '地球、生命、そして私たち。46億年の時を超え、壮大な進化の物語が今、幕を開ける。無数の偶然と必然が織りなす奇跡の連鎖を、その目でご覧ください。最初の生命のささやきから、多様な種が花開く現在まで、驚きに満ちた発見の旅が、あなたを待っています。' },
-    { id: 2, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 1 - Scene 2', description: 'This is a video scene.' },
+    {
+      id: 1,
+      type: 'image',
+      image: 'space.jpg',
+      title: '宇宙・航空事業部',
+      description: '当社の宇宙・航空事業部では、最先端の精密加工技術と新素材開発の知見を融合させ、次世代の衛星構造体やロケットエンジン部品の開発に取り組んでいます。過酷な宇宙環境に耐えうる超軽量・高強度のコンポーネントは、国内外の主要な宇宙プロジェクトで採用されており、人類のフロンティア拡大を技術で支えています。また、培った航空技術を活かし、eVTOL（空飛ぶクルマ）などの次世代都市交通インフラにおける基幹部品の供給を行い、空の移動の民主化と持続可能な空のインフラ構築に貢献しています。未来の空と宇宙を、当社の技術が繋ぎます。'
+    },
+    {
+      id: 2,
+      type: 'video',
+      video: 'Artifficial-Satellite.mp4',
+      title: '宇宙・航空事業部 - Vision',
+      description: '広大なフロンティアへ向けた、当社の挑戦。'
+    }
   ],
   timeline2: [
-    { id: 3, type: 'image', image: 'https://picsum.photos/seed/timeline2-1/1920/1080', title: 'Timeline 2 - Scene 1', description: 'かつてこの星を支配した、巨大な生物たちの時代。彼らはどのように生き、どのようにして姿を消したのか。化石として残された静かなる証言が、失われた世界の驚異と謎を力強く語りかけます。遥か太古の記憶を辿り、生命のダイナミズムを感じてみましょう。' },
-    { id: 4, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 2 - Scene 2', description: 'This is a video scene.' },
+    {
+      id: 3,
+      type: 'image',
+      image: 'bio.jpg',
+      title: 'バイオ・ライフサイエンス事業部',
+      description: '生命の神秘を工学の視点で紐解くバイオ・ライフサイエンス事業部では、ゲノム編集技術や幹細胞工学を応用した創薬支援プラットフォームの開発から、機能性新素材の創出まで幅広く手掛けています。当社の微細加工技術によって実現した高精度なバイオチップは、迅速な診断と効率的な治療計画の策定を可能にし、個別化医療の進展に寄与しています。また、バイオプラスチックや微生物を用いた環境浄化ソリューションの開発を通じて、人々の健康と地球の健全性を同時に守る「持続可能な豊かさ」の実現を目指しています。技術を通じて、生命の可能性を最大限に引き出します。'
+    },
+    {
+      id: 4,
+      type: 'video',
+      video: 'Bio_Chip_Laser_Scan_Video.mp4',
+      title: 'バイオ・ライフサイエンス - Tech',
+      description: 'ナノレベルの精密さと、生命への敬意。'
+    }
   ],
   timeline3: [
-    { id: 5, type: 'image', image: 'https://picsum.photos/seed/timeline3-1/1920/1080', title: 'Timeline 3 - Scene 1', description: '知恵と創造の光。人類が道具を手にし、文明を築き上げた軌跡は、挑戦と克服の歴史そのものです。芸術、科学、そして社会。私たちの祖先が未来へと託した、数々の偉大な遺産とその精神に触れることで、現代に続く文化の源流を紐解きます。' },
-    { id: 6, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 3 - Scene 2', description: 'This is a video scene.' },
+    {
+      id: 5,
+      type: 'image',
+      image: 'robot.jpg',
+      title: 'AI・ロボティクス開発本部',
+      description: 'AI・ロボティクス開発本部では、ディープラーニングと高度なセンシング技術を統合し、自律的に状況を判断し行動する次世代産業用ロボットの開発を推進しています。人間と協調して働くコボット（協働ロボット）は、複雑な組立工程や物流現場での負荷を劇的に軽減し、生産性の向上と安全性の確保を高いレベルで両立させています。さらに、現場のビッグデータをリアルタイムで解析する産業用AIプラットフォームにより、故障の予兆検知やプロセスの自動最適化を実現。製造業のデジタルツイン化を強力にバックアップし、スマートファクトリーの未来を技術の力で切り拓いていきます。'
+    },
+    {
+      id: 6,
+      type: 'video',
+      video: 'Robotic_Arm_Assembling_Circuit_Board.mp4',
+      title: 'AI・ロボティクス - Innovation',
+      description: '知能と物理の融合が、産業の形を変える。'
+    }
   ],
   timeline4: [
-    { id: 7, type: 'image', image: 'https://picsum.photos/seed/timeline4-1/1920/1080', title: 'Timeline 4 - Scene 1', description: '過去から学び、未来を創造する。技術革新が加速する現代において、私たちはどこへ向かうのでしょうか。この展示は、生命と地球環境の持続可能性を問いかけます。過去の選択が現在を形作ったように、今の私たちの選択が未来を創るのです。' },
-    { id: 8, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 4 - Scene 2', description: 'This is a video scene.' },
+    {
+      id: 7,
+      type: 'image',
+      image: 'energy.jpg',
+      title: 'グリーンエネルギー事業推進室',
+      description: '気候変動問題の解決をミッションに掲げるグリーンエネルギー事業推進室は、再生可能エネルギーの主力電源化を目指し、次世代太陽電池や超大型風力発電機用コンポーネントの研究開発を行っています。特に、エネルギーを高効率で蓄える全固体電池技術や、水素製造・貯蔵システムの構築において、当社の触媒技術と材料工学が決定的な役割を果たしています。スマートグリッドによる電力需給の最適化ソリューションも展開し、カーボンニュートラルな社会の実現に向けたトータルエネルギーマネジメントを提供。クリーンなエネルギーが社会を巡る、循環型の未来を確かな技術力で描いています。'
+    },
+    {
+      id: 8,
+      type: 'video',
+      video: 'Solar-Panel.mp4',
+      title: 'グリーンエネルギー - Sustainable',
+      description: '地球と共生する、新しいエネルギーの循環。'
+    }
   ],
 };
 
-// HomeScreen no longer renders the outer div. It returns a fragment.
+// Brochure-style background image
+const brochureBackground = 'image.png';
+
+const hotspotPositions = [
+  { top: '25%', left: '25%' }, // Universe (Top Left)
+  { top: '25%', left: '75%' }, // Biology (Top Right)
+  { top: '75%', left: '25%' }, // AI/Robotics (Bottom Left)
+  { top: '75%', left: '75%' }, // Green Energy (Bottom Right)
+];
+
 const HomeScreen = ({ onSelectTimeline, timelines }) => (
-  <>
-    <h1 className="home-title">物語を選択</h1>
-    <div className="panel-container">
-      {Object.keys(timelines).map((timelineId, index) => {
-        const timeline = timelines[timelineId];
-        const panelImage = timeline[0].type === 'image' ? timeline[0].image : ''; // Use first image as background
-        return (
-          <div
-            key={timelineId}
-            className="panel"
-            onClick={() => onSelectTimeline(timelineId)}
-            style={{ backgroundImage: `url(${panelImage})` }}
-          >
-            <div className="panel-overlay">
-              <h2>Timeline {index + 1}</h2>
+  <div className="brochure-container" style={{ backgroundImage: `url(${brochureBackground})` }}>
+    {Object.keys(timelines).map((timelineId, index) => {
+      const pos = hotspotPositions[index];
+      return (
+        <div
+          key={timelineId}
+          className="hotspot"
+          onClick={() => onSelectTimeline(timelineId)}
+          style={{
+            top: pos.top,
+            left: pos.left,
+          }}
+        >
+          <div className="hotspot-content">
+            <span className="hand-icon hotspot-hand">🤚</span>
+            <div className="hotspot-label">
+              <h2>Story {index + 1}</h2>
             </div>
           </div>
-        );
-      })}
-    </div>
-  </>
+        </div>
+      );
+    })}
+  </div>
 );
 
 const TimelineIndicator = ({ total, current }) => (
@@ -188,70 +247,84 @@ function App() {
           <rect width="100%" height="100%" />
         </svg>
       )}
-      <AnimatePresence initial={false}>
-        {!currentTimeline ? (
-          <motion.div
-            key="home"
-            className="home-screen" // The className is now on the motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <HomeScreen onSelectTimeline={handleSelectTimeline} timelines={timelines} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key={sceneIndex}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.5 },
-            }}
-            className="scene"
-            {...bind()}
-            style={{ touchAction: 'none' }}
-          >
-            <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
-            <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
-            <div className="overlay">
-              <h1 className="title">{currentScene.title}</h1>
-              <p className="description">{currentScene.description}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {currentTimeline && (
-        <>
-          <button
-            className="nav-button prev-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePrevScene();
-            }}
-            aria-label="Previous Scene"
-          />
-          <button
-            className="nav-button next-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleNextScene();
-            }}
-            aria-label="Next Scene"
-          />
-          {currentScene.type === 'image' && (
-            <ProgressBar
-              key={currentTimeline + '-' + sceneIndex}
-              duration={DURATION}
-              isPaused={isPaused}
-              onComplete={() => !isPaused && handleNextScene()}
-            />
+      <div className="main-content">
+        <AnimatePresence initial={false}>
+          {!currentTimeline ? (
+            <motion.div
+              key="home"
+              className="home-screen" // The className is now on the motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <HomeScreen onSelectTimeline={handleSelectTimeline} timelines={timelines} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key={sceneIndex}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.5 },
+              }}
+              className="scene"
+              {...bind()}
+              style={{ touchAction: 'none' }}
+            >
+              <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
+              <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
+              <div className="overlay">
+                <h1 className="title">{currentScene.title}</h1>
+                <p className="description">{currentScene.description}</p>
+              </div>
+            </motion.div>
           )}
-        </>
-      )}
+        </AnimatePresence>
+        {currentTimeline && (
+          <>
+            <button
+              className="nav-button prev-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevScene();
+              }}
+              aria-label="Previous Scene"
+            />
+            <button
+              className="nav-button next-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextScene();
+              }}
+              aria-label="Next Scene"
+            />
+            {currentScene.type === 'image' && (
+              <ProgressBar
+                key={currentTimeline + '-' + sceneIndex}
+                duration={DURATION}
+                isPaused={isPaused}
+                onComplete={() => !isPaused && handleNextScene()}
+              />
+            )}
+          </>
+        )}
+      </div>
+      <div className="footer-banner">
+        <div className="footer-content">
+          <div className="footer-logo-section">
+            <h2 className="footer-company-name">NEXUS</h2>
+            <p className="footer-tagline">Museum of Science & Technology</p>
+          </div>
+          <div className="footer-qr-section">
+            <img src="qrcode.png" alt="QR Code" className="footer-qr-code" />
+            <p className="footer-qr-text">Visit our Website</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

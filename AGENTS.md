@@ -22,8 +22,8 @@ The application's aesthetic is critical. It must feel like a natural extension o
 - **Typography**: The primary font is 'Shippori Mincho', a serif font that evokes a sense of tradition and elegance.
 - **Color Palette**: The core color scheme is dark and atmospheric, using a radial gradient from `#1b2735` to `#090a0f` to create depth. White text provides high contrast.
 - **Layout**: The layout must be clean, intuitive, and visually balanced.
-  - **Target Display**: The application is designed and optimized for a **portrait-oriented Full HD display (1080px width by 1920px height)**. While the layout is fluid, this is the primary aspect ratio for which all design decisions are made.
-  - **Home Screen**: A full-screen, portrait-oriented layout presents four large, clickable panels. This design is non-negotiable and all styling must support this structure.
+  - **Target Display**: The application is designed and optimized for a **portrait-oriented 4K display (2160px width by 3840px height)**. While the layout is fluid, this is the primary aspect ratio for which all design decisions are made.
+  - **Home Screen**: A full-screen, portrait-oriented layout featuring a single background image (brochure style) with four distinct touch hotspots. Each hotspot is marked with a large animated hand icon to invite user interaction. This design is optimized for a 2160x3840 4K display.
   - **Scene View**: Content is displayed full-screen with overlayed text for titles and descriptions.
 
 ## 4. Data Structure (Timelines & Scenes)
@@ -85,3 +85,51 @@ A major layout issue was encountered where panels on the home screen would rende
     2.  The problematic intermediate wrapper (`<motion.div>`) was given the `className="home-screen"` directly.
 
 -   **Key Takeaway:** When debugging layout issues where elements mysteriously have zero height, **always inspect the full DOM hierarchy in the browser's developer tools.** Look for intermediate wrapper elements that may be breaking the `height: 100%` inheritance chain. The solution often lies in refactoring the component structure, not just the stylesheet.
+
+## PWA Support
+
+The application is configured as a Progressive Web App (PWA), allowing it to be installed on devices and work offline.
+
+- **Manifest**: Located at `public/manifest.json`. Defines the app name, colors, and icons.
+- **Service Worker**: Located at `public/sw.js`. Handles caching of core assets for offline availability.
+- **Registration**: Handled in `index.html` via a script tag.
+
+## Deployment
+
+The application is deployed to GitHub Pages using the `gh-pages` branch. Since the `dist` folder is tracked in the repository, we use `git subtree` to push only the built assets.
+
+### Deployment Command
+```bash
+bun run deploy
+```
+*This runs: `git subtree push --prefix dist github gh-pages`*
+
+### Troubleshooting Deployment
+If you encounter a "non-fast-forward" error during deploy, it means the remote `gh-pages` branch has diverged. Since `dist` is a generated state, you can force-overwrite the remote branch with the current `dist` content. 
+
+In PowerShell:
+```powershell
+$hash = git subtree split --prefix dist main
+git push github "${hash}:gh-pages" --force
+```
+
+In standard Git Bash / Linux:
+```bash
+git push github `git subtree split --prefix dist main`:gh-pages --force
+```
+
+## Windows Command Line Tips (PowerShell)
+
+During development on Windows, several shell-specific issues were encountered. Note the following for future tasks:
+
+1.  **Command Substitution**: PowerShell does not support backticks (`` ` ``) for command execution/substitution. Use the `$()` syntax instead.
+    - *Bash:* `` `cmd` ``
+    - *PowerShell:* `$(cmd)`
+2.  **Bun Path**: If `bun` is not in the system PATH, use the full path: `C:\Users\takas\.bun\bin\bun.exe`.
+3.  **Command Chaining**: When using `;` or `&&` to chain commands that include variables (like `$hash`), ensure the variables are defined and used within the same session. 
+4.  **Quote Escaping**: Avoid complex nested quoting in `powershell -Command "..."` strings. It's safer to run commands directly in the shell or use a script file.
+5.  **Git Subtree in PowerShell**: To force-deploy a subtree, the variable assignment method is most reliable:
+    ```powershell
+    $hash = git subtree split --prefix dist main; git push github "${hash}:gh-pages" --force
+    ```
+
