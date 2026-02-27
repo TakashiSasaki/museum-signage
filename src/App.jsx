@@ -5,19 +5,19 @@ import './App.css';
 
 const timelines = {
   timeline1: [
-    { id: 1, type: 'image', image: 'https://picsum.photos/seed/timeline1-1/1920/1080', title: 'Timeline 1 - Scene 1', description: 'Description for timeline 1, scene 1.' },
+    { id: 1, type: 'image', image: 'https://picsum.photos/seed/timeline1-1/1920/1080', title: 'Timeline 1 - Scene 1', description: '地球、生命、そして私たち。46億年の時を超え、壮大な進化の物語が今、幕を開ける。無数の偶然と必然が織りなす奇跡の連鎖を、その目でご覧ください。最初の生命のささやきから、多様な種が花開く現在まで、驚きに満ちた発見の旅が、あなたを待っています。' },
     { id: 2, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 1 - Scene 2', description: 'This is a video scene.' },
   ],
   timeline2: [
-    { id: 3, type: 'image', image: 'https://picsum.photos/seed/timeline2-1/1920/1080', title: 'Timeline 2 - Scene 1', description: 'Description for timeline 2, scene 1.' },
+    { id: 3, type: 'image', image: 'https://picsum.photos/seed/timeline2-1/1920/1080', title: 'Timeline 2 - Scene 1', description: 'かつてこの星を支配した、巨大な生物たちの時代。彼らはどのように生き、どのようにして姿を消したのか。化石として残された静かなる証言が、失われた世界の驚異と謎を力強く語りかけます。遥か太古の記憶を辿り、生命のダイナミズムを感じてみましょう。' },
     { id: 4, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 2 - Scene 2', description: 'This is a video scene.' },
   ],
   timeline3: [
-    { id: 5, type: 'image', image: 'https://picsum.photos/seed/timeline3-1/1920/1080', title: 'Timeline 3 - Scene 1', description: 'Description for timeline 3, scene 1.' },
+    { id: 5, type: 'image', image: 'https://picsum.photos/seed/timeline3-1/1920/1080', title: 'Timeline 3 - Scene 1', description: '知恵と創造の光。人類が道具を手にし、文明を築き上げた軌跡は、挑戦と克服の歴史そのものです。芸術、科学、そして社会。私たちの祖先が未来へと託した、数々の偉大な遺産とその精神に触れることで、現代に続く文化の源流を紐解きます。' },
     { id: 6, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 3 - Scene 2', description: 'This is a video scene.' },
   ],
   timeline4: [
-    { id: 7, type: 'image', image: 'https://picsum.photos/seed/timeline4-1/1920/1080', title: 'Timeline 4 - Scene 1', description: 'Description for timeline 4, scene 1.' },
+    { id: 7, type: 'image', image: 'https://picsum.photos/seed/timeline4-1/1920/1080', title: 'Timeline 4 - Scene 1', description: '過去から学び、未来を創造する。技術革新が加速する現代において、私たちはどこへ向かうのでしょうか。この展示は、生命と地球環境の持続可能性を問いかけます。過去の選択が現在を形作ったように、今の私たちの選択が未来を創るのです。' },
     { id: 8, type: 'video', video: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Timeline 4 - Scene 2', description: 'This is a video scene.' },
   ],
 };
