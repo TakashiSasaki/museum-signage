@@ -21,7 +21,7 @@ const analytics = getAnalytics(app);
 const messaging = getMessaging(app);
 
 export const requestForToken = () => {
-  return getToken(messaging, { vapidKey: 'YOUR_PUBLIC_VAPID_KEY' })
+  return getToken(messaging, { vapidKey: 'BCklDvk0RWxLC21_To6l_1eSBxVTmxoeMEyUu611yN2aPULqBMkLO57DOfaSvGL7W1Llcgso6xVVbdXHajpD9pc' })
     .then((currentToken) => {
       if (currentToken) {
         console.log('current token for client: ', currentToken);
