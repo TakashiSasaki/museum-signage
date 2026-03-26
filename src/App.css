@@ -26,6 +26,7 @@
   z-index: 50;
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
   border-top: 4px solid #0056b3;
+  position: relative; 
 }
 
 .footer-content {
@@ -61,7 +62,7 @@
 }
 
 .footer-qr-code {
-  height: 14vh;
+  height: 10vh;
   width: auto;
   border: 4px solid #090a0f;
   padding: 5px;
@@ -89,18 +90,7 @@ html {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 20px;
-  gap: 20px;
   box-sizing: border-box;
-}
-
-.home-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3);
-  text-align: center;
-  flex-shrink: 0;
 }
 
 .brochure-container {
@@ -119,68 +109,6 @@ html {
   width: 100%;
   z-index: 5;
   pointer-events: none;
-}
-
-.hotspot {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  transition: all 0.3s ease;
-}
-
-.hotspot:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-.hotspot-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.hotspot-hand {
-  font-size: 4em !important;
-  margin-bottom: 2rem;
-}
-
-.hotspot-label h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0;
-  color: #fff;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-}
-
-.hand-icon {
-  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
-  animation: pulse-hand 2s ease-in-out infinite;
-  pointer-events: none;
-  opacity: 0.9;
-}
-
-@keyframes pulse-hand {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-
-  50% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
 }
 
 .timeline-indicator {
@@ -349,71 +277,23 @@ html {
   transform: translateX(-2px) rotate(45deg);
 }
 
-/* Notification Toast */
-.notification-toast {
+.reload-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 15px 20px;
-  border-radius: 8px;
-  z-index: 200;
-  border-left: 4px solid #00aaff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  width: 300px;
-}
-
-.notification-toast h4 {
-  margin: 0 0 5px 0;
-  font-weight: 700;
-}
-
-.notification-toast p {
-  margin: 0;
-  font-size: 0.9em;
-}
-
-.notification-close-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2em;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.notification-close-button:hover {
-  opacity: 1;
-}
-
-/* Footer Notification Section */
-.footer-notification-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #090a0f;
-}
-
-.notification-button {
-  background-color: #007bff;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 12px 25px;
-  font-size: 2.5vh;
-  border-radius: 50px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-family: 'Shippori Mincho', serif;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+  transition: background 0.3s;
 }
 
-.notification-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+.reload-button:hover {
+  background: rgba(0, 0, 0, 0.8);
 }

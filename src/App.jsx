@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGesture } from '@use-gesture/react';
 import './App.css';
-import { requestForToken, onMessageListener } from './firebase';
 
 const timelines = {
   timeline1: [
@@ -71,42 +70,6 @@ const timelines = {
   ],
 };
 
-// Brochure-style background image
-const brochureBackground = 'image.png';
-
-const hotspotPositions = [
-  { top: '25%', left: '25%' }, // Universe (Top Left)
-  { top: '25%', left: '75%' }, // Biology (Top Right)
-  { top: '75%', left: '25%' }, // AI/Robotics (Bottom Left)
-  { top: '75%', left: '75%' }, // Green Energy (Bottom Right)
-];
-
-const HomeScreen = ({ onSelectTimeline, timelines }) => (
-  <div className="brochure-container" style={{ backgroundImage: `url(${brochureBackground})` }}>
-    {Object.keys(timelines).map((timelineId, index) => {
-      const pos = hotspotPositions[index];
-      return (
-        <div
-          key={timelineId}
-          className="hotspot"
-          onClick={() => onSelectTimeline(timelineId)}
-          style={{
-            top: pos.top,
-            left: pos.left,
-          }}
-        >
-          <div className="hotspot-content">
-            <span className="hand-icon hotspot-hand">🤚</span>
-            <div className="hotspot-label">
-              <h2>Story {index + 1}</h2>
-            </div>
-          </div>
-        </div>
-      );
-    })}
-  </div>
-);
-
 const TimelineIndicator = ({ total, current }) => (
   <div className="timeline-indicator">
     {Array.from({ length: total }).map((_, i) => (
@@ -156,83 +119,14 @@ const ProgressBar = ({ duration, isPaused, onComplete }) => {
   );
 };
 
-const NotificationToast = ({ notification, onClose }) => {
-  if (!notification.title) {
-    return null;
-  }
-
-  return (
-    <motion.div
-      className="notification-toast"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: -100, opacity: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-    >
-      <h4>{notification.title}</h4>
-      <p>{notification.body}</p>
-      <button onClick={onClose} className="notification-close-button">&times;</button>
-    </motion.div>
-  );
-};
-
 function App() {
-  const [currentTimeline, setCurrentTimeline] = useState(null);
+  const [currentTimeline, setCurrentTimeline] = useState('timeline1');
   const [sceneIndex, setSceneIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [isFocused, setIsFocused] = useState(true);
-  const [showNotificationButton, setShowNotificationButton] = useState(false);
-  const [notificationToast, setNotificationToast] = useState({});
-
-  useEffect(() => {
-    if (typeof Notification !== 'undefined') {
-        if (Notification.permission === 'granted') {
-            console.log('Notification permission already granted.');
-            setShowNotificationButton(false);
-        } else if (Notification.permission !== 'denied') {
-            console.log('Notification permission not denied, showing button.');
-            setShowNotificationButton(true);
-        } else {
-            console.log('Notification permission denied.');
-            setShowNotificationButton(false);
-        }
-    }
-
-
-    onMessageListener()
-      .then(payload => {
-        setNotificationToast({title: payload.notification.title, body: payload.notification.body});
-      })
-      .catch(err => console.log('failed: ', err));
-  }, []);
-
-  useEffect(() => {
-    if (notificationToast.title) {
-      const timer = setTimeout(() => {
-        setNotificationToast({});
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [notificationToast]);
-
-  const handleRequestPermission = () => {
-    requestForToken()
-      .then(() => {
-        console.log('Notification permission granted.');
-        setShowNotificationButton(false);
-      })
-      .catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-      });
-  };
-
-  const handleSelectTimeline = (timelineId) => {
-    setCurrentTimeline(timelineId);
-    setSceneIndex(0);
-  };
 
   const DURATION = 15; // Image scene duration
   const [direction, setDirection] = useState(1);
+  const timelineIds = Object.keys(timelines);
 
   const changeScene = (newDirection) => {
     if (!currentTimeline) return;
@@ -241,9 +135,19 @@ function App() {
     const newIndex = sceneIndex + newDirection;
 
     if (newIndex < 0) {
-      setCurrentTimeline(null);
+      const currentTimelineIndex = timelineIds.indexOf(currentTimeline);
+      const prevTimelineIndex = (currentTimelineIndex - 1 + timelineIds.length) % timelineIds.length;
+      const prevTimelineId = timelineIds[prevTimelineIndex];
+      setCurrentTimeline(prevTimelineId);
+      setSceneIndex(timelines[prevTimelineId].length - 1); // last scene of prev
+      setDirection(-1);
     } else if (newIndex >= timeline.length) {
-      setCurrentTimeline(null);
+      const currentTimelineIndex = timelineIds.indexOf(currentTimeline);
+      const nextTimelineIndex = (currentTimelineIndex + 1) % timelineIds.length;
+      const nextTimelineId = timelineIds[nextTimelineIndex];
+      setCurrentTimeline(nextTimelineId);
+      setSceneIndex(0); // first scene of next
+      setDirection(1);
     } else {
       setSceneIndex(newIndex);
       setDirection(newDirection);
@@ -307,52 +211,36 @@ function App() {
       onTouchEnd={() => setIsPaused(false)}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <AnimatePresence>
-        {notificationToast.title && (
-          <NotificationToast
-            notification={notificationToast}
-            onClose={() => setNotificationToast({})}
-          />
-        )}
-      </AnimatePresence>
       <div className="main-content">
-        <AnimatePresence initial={false}>
-          {!currentTimeline ? (
-            <motion.div
-              key="home"
-              className="home-screen" // The className is now on the motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <HomeScreen onSelectTimeline={handleSelectTimeline} timelines={timelines} />
-            </motion.div>
-          ) : (
-            <motion.div
-              key={sceneIndex}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: 'spring', stiffness: 300, damping: 30 },
-                opacity: { duration: 0.5 },
-              }}
-              className="scene"
-              {...bind()}
-              style={{ touchAction: 'none' }}
-            >
-              <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
-              <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
-              <div className="overlay">
-                <h1 className="title">{currentScene.title}</h1>
-                <p className="description">{currentScene.description}</p>
-              </div>
-            </motion.div>
-          )}
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={currentTimeline + sceneIndex} // Ensure re-render on timeline change
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.5 },
+            }}
+            className="scene"
+            {...bind()}
+            style={{ touchAction: 'none' }}
+          >
+            {currentScene && (
+              <>
+                <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
+                <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
+                <div className="overlay">
+                  <h1 className="title">{currentScene.title}</h1>
+                  <p className="description">{currentScene.description}</p>
+                </div>
+              </>
+            )}
+          </motion.div>
         </AnimatePresence>
-        {currentTimeline && (
+        {currentScene && (
           <>
             <button
               className="nav-button prev-button"
@@ -387,18 +275,14 @@ function App() {
             <h2 className="footer-company-name">NEXUS</h2>
             <p className="footer-tagline">Museum of Science & Technology</p>
           </div>
-          {showNotificationButton && (
-             <div className="footer-notification-section">
-                <button onClick={handleRequestPermission} className="notification-button">
-                  通知を有効にする
-                </button>
-              </div>
-          )}
           <div className="footer-qr-section">
             <img src="qrcode.png" alt="QR Code" className="footer-qr-code" />
             <p className="footer-qr-text">Visit our Website</p>
           </div>
         </div>
+        <button className="reload-button" onClick={() => window.location.reload()} aria-label="Reload Page">
+          &#x21bb; 
+        </button>
       </div>
     </div>
   );
