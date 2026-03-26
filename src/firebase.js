@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import firebase from 'firebase/app';
+import 'firebase/analytics';
+import 'firebase/messaging';
 
 // TODO: Add your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -16,12 +16,17 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const messaging = getMessaging(app);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
+
+const analytics = firebase.analytics();
+const messaging = firebase.messaging();
 
 export const requestForToken = () => {
-  return getToken(messaging, { vapidKey: 'BCklDvk0RWxLC21_To6l_1eSBxVTmxoeMEyUu611yN2aPULqBMkLO57DOfaSvGL7W1Llcgso6xVVbdXHajpD9pc' })
+  return messaging.getToken({ vapidKey: 'BCklDvk0RWxLC21_To6l_1eSBxVTmxoeMEyUu611yN2aPULqBMkLO57DOfaSvGL7W1Llcgso6xVVbdXHajpD9pc' })
     .then((currentToken) => {
       if (currentToken) {
         console.log('current token for client: ', currentToken);
@@ -39,7 +44,7 @@ export const requestForToken = () => {
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    onMessage(messaging, (payload) => {
+    messaging.onMessage((payload) => {
       console.log('Message received. ', payload);
       resolve(payload);
     });

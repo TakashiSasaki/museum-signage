@@ -315,11 +315,6 @@ function App() {
           />
         )}
       </AnimatePresence>
-      {isFocused && (
-        <svg className="marching-ants-svg">
-          <rect width="100%" height="100%" />
-        </svg>
-      )}
       <div className="main-content">
         <AnimatePresence initial={false}>
           {!currentTimeline ? (

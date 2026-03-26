@@ -2,12 +2,12 @@
 # see: https://developers.google.com/idx/guides/customize-idx-env
 { pkgs, ... }: {
   # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
+  channel = "unstable"; # or "stable-24.05"
 
   # Use https://search.nixos.org/packages to find packages.
-  # We've included nodejs-20 and a formatter that you can use for this file.
+  # We've included nodejs-22 and a formatter that you can use for this file.
   packages = [
-    pkgs.nodejs_20
+    pkgs.nodejs_22
     pkgs.nixpkgs-fmt
   ];
 
