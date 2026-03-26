@@ -274,8 +274,8 @@ function App() {
           <div className="footer-logo-section">
             <img src="museum-mark.png" alt="NEXUS Logo" className="footer-logo" />
             <div>
-              <h2 className="footer-company-name">NEXUS</h2>
               <p className="footer-tagline">Museum of Science & Technology</p>
+              <h2 className="footer-company-name">NEXUS</h2>
             </div>
           </div>
           <div className="footer-qr-section">
