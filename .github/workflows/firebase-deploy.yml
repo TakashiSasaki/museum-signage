@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - museum-signage
+  workflow_dispatch:
 
 jobs:
   build_and_deploy:
