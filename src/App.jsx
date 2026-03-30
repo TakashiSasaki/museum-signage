@@ -280,7 +280,6 @@ function App() {
           </div>
           <div className="footer-qr-section">
             <img src="qrcode.png" alt="QR Code" className="footer-qr-code" />
-            <p className="footer-qr-text">Visit our Website</p>
           </div>
         </div>
         <button className="reload-button" onClick={() => window.location.reload()} aria-label="Reload Page">

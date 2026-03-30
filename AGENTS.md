@@ -27,6 +27,8 @@ The application's aesthetic is critical. It must feel like a natural extension o
     - **iPhone SE**: 375 x 667 (Minimum viewport)
     - **iPhone XR / 11**: 414 x 896 (Standard large mobile)
     - **iPhone 12/13/14/15 Pro**: 390 x 844
+    - **iPhone 14 Pro Max**: 430 x 932
+    - **Pixel 7**: 412 x 915
     - **iPad Air**: 820 x 1180
   - **Home Screen**: A full-screen, portrait-oriented layout featuring a single background image (brochure style) with four distinct touch hotspots. Each hotspot is marked with a large animated hand icon to invite user interaction. This design is optimized for a 2160x3840 4K display.
   - **Scene View**: Content is displayed full-screen with overlayed text for titles and descriptions.
