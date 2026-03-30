@@ -111,6 +111,11 @@ bun run deploy
 ```
 *This runs: `git subtree push --prefix dist github gh-pages`*
 
+### Firebase Hosting
+- **Project ID**: `museum-signage-37925190-100ae`
+- **Deployment URL**: [https://museum-signage-37925190-100ae.web.app](https://museum-signage-37925190-100ae.web.app)
+- **Deployment Command**: `npx -y firebase-tools deploy --project museum-signage-37925190-100ae`
+
 ### Troubleshooting Deployment
 If you encounter a "non-fast-forward" error during deploy, it means the remote `gh-pages` branch has diverged. Since `dist` is a generated state, you can force-overwrite the remote branch with the current `dist` content. 
 
