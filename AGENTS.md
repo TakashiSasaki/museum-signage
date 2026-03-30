@@ -23,6 +23,11 @@ The application's aesthetic is critical. It must feel like a natural extension o
 - **Color Palette**: The core color scheme is dark and atmospheric, using a radial gradient from `#1b2735` to `#090a0f` to create depth. White text provides high contrast.
 - **Layout**: The layout must be clean, intuitive, and visually balanced.
   - **Target Display**: The application is designed and optimized for a **portrait-oriented 4K display (2160px width by 3840px height)**. While the layout is fluid, this is the primary aspect ratio for which all design decisions are made.
+  - **Verified Screen Sizes**: In addition to the target 4K display, the application is verified on the following typical screen sizes:
+    - **iPhone SE**: 375 x 667 (Minimum viewport)
+    - **iPhone XR / 11**: 414 x 896 (Standard large mobile)
+    - **iPhone 12/13/14/15 Pro**: 390 x 844
+    - **iPad Air**: 820 x 1180
   - **Home Screen**: A full-screen, portrait-oriented layout featuring a single background image (brochure style) with four distinct touch hotspots. Each hotspot is marked with a large animated hand icon to invite user interaction. This design is optimized for a 2160x3840 4K display.
   - **Scene View**: Content is displayed full-screen with overlayed text for titles and descriptions.
 

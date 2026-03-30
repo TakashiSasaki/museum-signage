@@ -9,6 +9,11 @@
   color: white;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 .main-content {
@@ -26,14 +31,22 @@
   z-index: 50;
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
   border-top: 4px solid #0056b3;
-  position: relative; 
+  position: relative;
+  padding: 0 min(15px, 2vw);
+}
+
+@media (max-width: 500px) {
+  .footer-banner {
+    padding-right: 60px; /* Leave space for the reload button */
+  }
 }
 
 .footer-content {
   display: flex;
-  width: 90%;
+  width: 100%;
+  padding: 0 4vw;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center; /* Center-align images and text */
 }
 
 .footer-logo-section {
@@ -41,47 +54,60 @@
   align-items: center;
   gap: 2vw;
   color: #090a0f;
+  min-width: 0;
+  flex: 1.5; /* Give logo section more priority but let it shrink */
+  overflow: hidden;
 }
 
 .footer-logo {
-  height: 8vh;
+  height: clamp(40px, 6vh, 150px);
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .footer-company-name {
-  font-size: 8vh;
-  margin: -2.5vh 0 0;
+  font-size: clamp(24px, 8vh, 180px);
+  margin: -1.5vh 0 0;
   font-weight: 800;
   letter-spacing: 0.5vh;
+  line-height: 1;
 }
 
 .footer-tagline {
-  font-size: 1.8vh;
+  font-size: clamp(10px, 1.8vh, 32px);
   margin: 0;
   opacity: 0.8;
   font-weight: 400;
-  white-space: nowrap;
+  /* Allow wrapping or scaling if it's too long, but keep it on one line if possible */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .footer-qr-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1vh;
+  gap: 0.5vh;
+  min-width: 0;
+  flex-shrink: 0; /* QR code should remain mostly unscuffed */
+  padding-left: 10px; /* Minimum horizontal separation */
 }
 
 .footer-qr-code {
-  height: 10vh;
+  height: clamp(50px, 10vh, 220px);
   width: auto;
-  border: 4px solid #090a0f;
-  padding: 5px;
+  border: 2px solid #090a0f;
+  padding: 4px;
   background: #fff;
+  flex-shrink: 0;
 }
 
 .footer-qr-text {
   color: #333;
   margin: 0;
-  font-size: 1.8vh;
+  font-size: clamp(10px, 1.8vh, 30px);
   font-weight: 600;
+  text-align: center;
 }
 
 #root,
@@ -287,7 +313,7 @@ html {
 
 .reload-button {
   position: absolute;
-  bottom: 10px;
+  top: 10px;
   right: 10px;
   background: rgba(0, 0, 0, 0.5);
   color: white;
@@ -300,6 +326,7 @@ html {
   text-align: center;
   cursor: pointer;
   transition: background 0.3s;
+  z-index: 10;
 }
 
 .reload-button:hover {
