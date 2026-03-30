@@ -49,6 +49,12 @@
   align-items: center; /* Center-align images and text */
 }
 
+@media (max-width: 500px) {
+  .footer-content {
+    padding-right: 10px; /* Additional spacing so QR code and reload button don't overlap */
+  }
+}
+
 .footer-logo-section {
   display: flex;
   align-items: center;
@@ -60,13 +66,14 @@
 }
 
 .footer-logo {
-  height: clamp(40px, 6vh, 150px);
+  height: clamp(30px, min(6vh, 8vw), 150px);
   flex-shrink: 1;
   min-width: 0;
+  object-fit: contain;
 }
 
 .footer-company-name {
-  font-size: clamp(24px, 8vh, 180px);
+  font-size: clamp(20px, min(8vh, 10vw), 180px);
   margin: -1.5vh 0 0;
   font-weight: 800;
   letter-spacing: 0.5vh;
@@ -74,13 +81,14 @@
 }
 
 .footer-tagline {
-  font-size: clamp(10px, 1.8vh, 32px);
+  font-size: clamp(10px, min(1.8vh, 3vw), 32px);
   margin: 0;
   opacity: 0.8;
   font-weight: 400;
   /* Allow wrapping or scaling if it's too long, but keep it on one line if possible */
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .footer-qr-section {
@@ -94,7 +102,7 @@
 }
 
 .footer-qr-code {
-  height: clamp(50px, 10vh, 220px);
+  height: clamp(40px, min(10vh, 15vw), 220px);
   width: auto;
   border: 2px solid #090a0f;
   padding: 4px;
@@ -105,9 +113,10 @@
 .footer-qr-text {
   color: #333;
   margin: 0;
-  font-size: clamp(10px, 1.8vh, 30px);
+  font-size: clamp(9px, min(1.8vh, 2.5vw), 30px);
   font-weight: 600;
   text-align: center;
+  white-space: nowrap;
 }
 
 #root,
@@ -229,21 +238,27 @@ html {
   left: 0;
   width: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, transparent);
-  padding: 4vh 6vw;
+  padding: 4vh calc(5vw + 40px);
   box-sizing: border-box;
 }
 
+@media (min-width: 800px) {
+  .overlay {
+    padding: 4vh calc(5vw + 60px);
+  }
+}
+
 .title {
-  font-size: 3vh;
+  font-size: clamp(18px, 3vh, 48px);
   margin-bottom: 2vh;
   font-weight: 600;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .description {
-  font-size: 1.6vh;
+  font-size: clamp(12px, 1.6vh, 24px);
   line-height: 1.6;
-  max-width: 85%;
+  max-width: 100%;
 }
 
 .progress-bar-container {
@@ -265,8 +280,8 @@ html {
   position: absolute;
   bottom: 5vh;
   z-index: 100;
-  width: 60px;
-  height: 60px;
+  width: clamp(40px, min(6vh, 12vw), 60px);
+  height: clamp(40px, min(6vh, 12vw), 60px);
   background-color: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
@@ -313,17 +328,19 @@ html {
 
 .reload-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: max(2%, 10px);
   background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
-  line-height: 40px;
-  text-align: center;
+  width: clamp(30px, 4vw, 40px);
+  height: clamp(30px, 4vw, 40px);
+  font-size: clamp(16px, 2vw, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: background 0.3s;
   z-index: 10;
