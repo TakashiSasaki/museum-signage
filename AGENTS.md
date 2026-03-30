@@ -103,32 +103,13 @@ The application is configured as a Progressive Web App (PWA), allowing it to be 
 
 ## Deployment
 
-The application is deployed to GitHub Pages using the `gh-pages` branch. Since the `dist` folder is tracked in the repository, we use `git subtree` to push only the built assets.
-
-### Deployment Command
-```bash
-bun run deploy
-```
-*This runs: `git subtree push --prefix dist github gh-pages`*
+The application is deployed to Firebase Hosting.
 
 ### Firebase Hosting
 - **Project ID**: `museum-signage-37925190-100ae`
 - **Deployment URL**: [https://museum-signage-37925190-100ae.web.app](https://museum-signage-37925190-100ae.web.app)
-- **Deployment Command**: `npx -y firebase-tools deploy --project museum-signage-37925190-100ae`
+- **Deployment Command**: `npm run deploy`
 
-### Troubleshooting Deployment
-If you encounter a "non-fast-forward" error during deploy, it means the remote `gh-pages` branch has diverged. Since `dist` is a generated state, you can force-overwrite the remote branch with the current `dist` content. 
-
-In PowerShell:
-```powershell
-$hash = git subtree split --prefix dist main
-git push github "${hash}:gh-pages" --force
-```
-
-In standard Git Bash / Linux:
-```bash
-git push github `git subtree split --prefix dist main`:gh-pages --force
-```
 
 ## Windows Command Line Tips (PowerShell)
 
@@ -140,8 +121,5 @@ During development on Windows, several shell-specific issues were encountered. N
 2.  **Bun Path**: If `bun` is not in the system PATH, use the full path: `C:\Users\takas\.bun\bin\bun.exe`.
 3.  **Command Chaining**: When using `;` or `&&` to chain commands that include variables (like `$hash`), ensure the variables are defined and used within the same session. 
 4.  **Quote Escaping**: Avoid complex nested quoting in `powershell -Command "..."` strings. It's safer to run commands directly in the shell or use a script file.
-5.  **Git Subtree in PowerShell**: To force-deploy a subtree, the variable assignment method is most reliable:
-    ```powershell
-    $hash = git subtree split --prefix dist main; git push github "${hash}:gh-pages" --force
-    ```
+
 
