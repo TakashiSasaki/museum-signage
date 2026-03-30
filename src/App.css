@@ -35,11 +35,6 @@
   padding: 0 min(15px, 2vw);
 }
 
-@media (max-width: 500px) {
-  .footer-banner {
-    padding-right: 60px; /* Leave space for the reload button */
-  }
-}
 
 .footer-content {
   display: flex;
@@ -49,11 +44,6 @@
   align-items: center; /* Center-align images and text */
 }
 
-@media (max-width: 500px) {
-  .footer-content {
-    padding-right: 10px; /* Additional spacing so QR code and reload button don't overlap */
-  }
-}
 
 .footer-logo-section {
   display: flex;
@@ -326,26 +316,3 @@ html {
   transform: translateX(-2px) rotate(45deg);
 }
 
-.reload-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: max(2%, 10px);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: clamp(30px, 4vw, 40px);
-  height: clamp(30px, 4vw, 40px);
-  font-size: clamp(16px, 2vw, 24px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s;
-  z-index: 10;
-}
-
-.reload-button:hover {
-  background: rgba(0, 0, 0, 0.8);
-}

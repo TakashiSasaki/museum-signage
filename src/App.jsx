@@ -272,7 +272,13 @@ function App() {
       <div className="footer-banner">
         <div className="footer-content">
           <div className="footer-logo-section">
-            <img src="museum-mark.png" alt="NEXUS Logo" className="footer-logo" />
+            <img 
+              src="museum-mark.png" 
+              alt="NEXUS Logo" 
+              className="footer-logo" 
+              onClick={() => window.location.reload()}
+              style={{ cursor: 'pointer' }}
+            />
             <div>
               <p className="footer-tagline">Museum of Science & Technology</p>
               <h2 className="footer-company-name">NEXUS</h2>
@@ -282,9 +288,6 @@ function App() {
             <img src="qrcode.png" alt="QR Code" className="footer-qr-code" />
           </div>
         </div>
-        <button className="reload-button" onClick={() => window.location.reload()} aria-label="Reload Page">
-          &#x21bb; 
-        </button>
       </div>
     </div>
   );
