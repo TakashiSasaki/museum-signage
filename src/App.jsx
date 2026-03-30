@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGesture } from '@use-gesture/react';
 import './App.css';
@@ -128,7 +128,7 @@ function App() {
   const [direction, setDirection] = useState(1);
   const timelineIds = Object.keys(timelines);
 
-  const changeScene = (newDirection) => {
+  const changeScene = useCallback((newDirection) => {
     if (!currentTimeline) return;
 
     const timeline = timelines[currentTimeline];
@@ -152,10 +152,10 @@ function App() {
       setSceneIndex(newIndex);
       setDirection(newDirection);
     }
-  };
+  }, [currentTimeline, sceneIndex, timelineIds]);
 
-  const handleNextScene = useCallback(() => changeScene(1), [currentTimeline, sceneIndex]);
-  const handlePrevScene = () => changeScene(-1);
+  const handleNextScene = useCallback(() => changeScene(1), [changeScene]);
+  const handlePrevScene = useCallback(() => changeScene(-1), [changeScene]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -171,10 +171,10 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleNextScene]);
+  }, [handleNextScene, handlePrevScene]);
 
   const bind = useGesture({
-    onDrag: ({ down, movement: [mx], direction: [xDir], distance, cancel }) => {
+    onDrag: ({ down, direction: [xDir], distance, cancel }) => {
       if (down && distance > window.innerWidth / 4) {
         const direction = xDir > 0 ? -1 : 1;
         changeScene(direction);

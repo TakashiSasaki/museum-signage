@@ -2,7 +2,7 @@
     "name": "NEXUS Museum Signage",
     "short_name": "NEXUS",
     "description": "Interactive signage for the Ehime University Museum",
-    "start_url": "https://museum.moukaeritai.work/",
+    "start_url": "https://museum-signage.moukaeritai.work/",
     "display": "standalone",
     "background_color": "#090a0f",
     "theme_color": "#090a0f",

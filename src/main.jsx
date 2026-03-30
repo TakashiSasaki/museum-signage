@@ -3,6 +3,36 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
+// Clear Cache Storage to remove old PWA content
+
+// Register minimal service worker to satisfy PWA installability requirements
+// while still unregistering old problematic service workers if any
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then((registration) => {
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      // Unregister any other service workers (like firebase-messaging-sw.js)
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let reg of registrations) {
+          if (reg.active && reg.active.scriptURL && !reg.active.scriptURL.endsWith('/sw.js')) {
+            reg.unregister();
+          }
+        }
+      });
+    }, (err) => {
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
+if ('caches' in window) {
+  caches.keys().then((names) => {
+    for (let name of names) {
+      caches.delete(name);
+    }
+  });
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
