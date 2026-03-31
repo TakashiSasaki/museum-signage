@@ -64,7 +64,7 @@
 
 .footer-company-name {
   font-size: clamp(20px, min(8vh, 10vw), 180px);
-  margin: -1.5vh 0 0;
+  margin: 0.5vh 0 0;
   font-weight: 800;
   letter-spacing: 0.5vh;
   line-height: 1;
