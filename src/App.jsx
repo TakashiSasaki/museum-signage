@@ -70,6 +70,53 @@ const timelines = {
   ],
 };
 
+// Timeline metadata for the home screen cards
+const timelineMeta = {
+  timeline1: { title: '宇宙・航空事業部', shortDesc: '次世代衛星・ロケット技術' },
+  timeline2: { title: 'バイオ・ライフサイエンス事業部', shortDesc: 'ゲノム編集・創薬支援' },
+  timeline3: { title: 'AI・ロボティクス開発本部', shortDesc: '自律型ロボット・産業AI' },
+  timeline4: { title: 'グリーンエネルギー事業推進室', shortDesc: '再生可能エネルギー技術' },
+};
+
+const HomeScreen = ({ onSelectTimeline }) => {
+  const timelineIds = Object.keys(timelines);
+
+  return (
+    <div className="home-screen">
+      <div className="home-header">
+        <h1 className="home-title">NEXUS Signage</h1>
+        <p className="home-subtitle">コンテンツを選択してください</p>
+      </div>
+      <div className="timeline-cards-grid">
+        {timelineIds.map((id, index) => {
+          const firstScene = timelines[id][0];
+          const meta = timelineMeta[id];
+          return (
+            <motion.div
+              key={id}
+              className="timeline-card"
+              onClick={() => onSelectTimeline(id)}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.5, ease: 'easeOut' }}
+            >
+              <div
+                className="card-background"
+                style={{ backgroundImage: `url(${firstScene.image})` }}
+              />
+              <div className="card-play-icon" />
+              <div className="card-overlay">
+                <h3 className="card-title">{meta.title}</h3>
+                <p className="card-description">{meta.shortDesc}</p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 const TimelineIndicator = ({ total, current }) => (
   <div className="timeline-indicator">
     {Array.from({ length: total }).map((_, i) => (
@@ -120,13 +167,19 @@ const ProgressBar = ({ duration, isPaused, onComplete }) => {
 };
 
 function App() {
-  const [currentTimeline, setCurrentTimeline] = useState('timeline1');
+  // null = show home screen, 'timeline1'...'timeline4' = show scene playback
+  const [currentTimeline, setCurrentTimeline] = useState(null);
   const [sceneIndex, setSceneIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
   const DURATION = 15; // Image scene duration
   const [direction, setDirection] = useState(1);
-  const timelineIds = Object.keys(timelines);
+
+  const goHome = useCallback(() => {
+    setCurrentTimeline(null);
+    setSceneIndex(0);
+    setDirection(1);
+  }, []);
 
   const changeScene = useCallback((newDirection) => {
     if (!currentTimeline) return;
@@ -135,34 +188,35 @@ function App() {
     const newIndex = sceneIndex + newDirection;
 
     if (newIndex < 0) {
-      const currentTimelineIndex = timelineIds.indexOf(currentTimeline);
-      const prevTimelineIndex = (currentTimelineIndex - 1 + timelineIds.length) % timelineIds.length;
-      const prevTimelineId = timelineIds[prevTimelineIndex];
-      setCurrentTimeline(prevTimelineId);
-      setSceneIndex(timelines[prevTimelineId].length - 1); // last scene of prev
-      setDirection(-1);
+      // At the beginning, go back to home
+      goHome();
     } else if (newIndex >= timeline.length) {
-      const currentTimelineIndex = timelineIds.indexOf(currentTimeline);
-      const nextTimelineIndex = (currentTimelineIndex + 1) % timelineIds.length;
-      const nextTimelineId = timelineIds[nextTimelineIndex];
-      setCurrentTimeline(nextTimelineId);
-      setSceneIndex(0); // first scene of next
-      setDirection(1);
+      // At the end, go back to home
+      goHome();
     } else {
       setSceneIndex(newIndex);
       setDirection(newDirection);
     }
-  }, [currentTimeline, sceneIndex, timelineIds]);
+  }, [currentTimeline, sceneIndex, goHome]);
 
   const handleNextScene = useCallback(() => changeScene(1), [changeScene]);
   const handlePrevScene = useCallback(() => changeScene(-1), [changeScene]);
 
+  const handleSelectTimeline = useCallback((timelineId) => {
+    setCurrentTimeline(timelineId);
+    setSceneIndex(0);
+    setDirection(1);
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
+      if (!currentTimeline) return;
       if (event.key === 'ArrowRight') {
         handleNextScene();
       } else if (event.key === 'ArrowLeft') {
         handlePrevScene();
+      } else if (event.key === 'Escape') {
+        goHome();
       }
     };
 
@@ -171,10 +225,11 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleNextScene, handlePrevScene]);
+  }, [currentTimeline, handleNextScene, handlePrevScene, goHome]);
 
   const bind = useGesture({
     onDrag: ({ down, direction: [xDir], distance, cancel }) => {
+      if (!currentTimeline) return;
       if (down && distance > window.innerWidth / 4) {
         const direction = xDir > 0 ? -1 : 1;
         changeScene(direction);
@@ -205,43 +260,68 @@ function App() {
   return (
     <div
       className="App"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={() => setIsPaused(true)}
-      onTouchEnd={() => setIsPaused(false)}
+      onMouseEnter={() => currentTimeline && setIsPaused(true)}
+      onMouseLeave={() => currentTimeline && setIsPaused(false)}
+      onTouchStart={() => currentTimeline && setIsPaused(true)}
+      onTouchEnd={() => currentTimeline && setIsPaused(false)}
       onContextMenu={(e) => e.preventDefault()}
     >
       <div className="main-content">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={currentTimeline + sceneIndex} // Ensure re-render on timeline change
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.5 },
-            }}
-            className="scene"
-            {...bind()}
-            style={{ touchAction: 'none' }}
-          >
-            {currentScene && (
-              <>
-                <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
-                <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
-                <div className="overlay">
-                  <h1 className="title">{currentScene.title}</h1>
-                  <p className="description">{currentScene.description}</p>
-                </div>
-              </>
-            )}
-          </motion.div>
+        <AnimatePresence mode="wait">
+          {!currentTimeline ? (
+            <motion.div
+              key="home"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              style={{ width: '100%', height: '100%' }}
+            >
+              <HomeScreen onSelectTimeline={handleSelectTimeline} />
+            </motion.div>
+          ) : (
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={currentTimeline + sceneIndex}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: 'spring', stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.5 },
+                }}
+                className="scene"
+                {...bind()}
+                style={{ touchAction: 'none' }}
+              >
+                {currentScene && (
+                  <>
+                    <TimelineIndicator total={timelines[currentTimeline].length} current={sceneIndex} />
+                    <SceneContent scene={currentScene} active={!isPaused} onVideoEnd={handleNextScene} />
+                    <div className="overlay">
+                      <h1 className="title">{currentScene.title}</h1>
+                      <p className="description">{currentScene.description}</p>
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          )}
         </AnimatePresence>
         {currentScene && (
           <>
+            <button
+              className="back-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                goHome();
+              }}
+              aria-label="ホームに戻る"
+            >
+              ホーム
+            </button>
             <button
               className="nav-button prev-button"
               onClick={(e) => {
