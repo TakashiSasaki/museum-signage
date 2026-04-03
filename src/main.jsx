@@ -26,9 +26,7 @@ if ('serviceWorker' in navigator) {
 
 if ('caches' in window) {
   caches.keys().then((names) => {
-    for (let name of names) {
-      caches.delete(name);
-    }
+    return Promise.all(names.map(name => caches.delete(name)));
   });
 }
 
