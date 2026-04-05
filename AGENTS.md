@@ -123,4 +123,45 @@ During development on Windows, several shell-specific issues were encountered. N
 3.  **Command Chaining**: When using `;` or `&&` to chain commands that include variables (like `$hash`), ensure the variables are defined and used within the same session. 
 4.  **Quote Escaping**: Avoid complex nested quoting in `powershell -Command "..."` strings. It's safer to run commands directly in the shell or use a script file.
 
+## 7. AI Development Guidelines (Project IDX / Firebase Studio)
+
+These guidelines define the operational principles for AI agents interacting with this React project to enable an efficient and error-resilient workflow.
+
+### Environment & Context Awareness
+* **`dev.nix` Configuration:** The `.idx/dev.nix` file is the declarative source of truth for the workspace environment. The AI should leverage it to ensure consistency.
+* **Preview Server:** The `web` preview is configured to run the Vite dev server. The AI must continuously monitor its output for real-time feedback on changes.
+* **Firebase MCP:** When requested for Firebase tools, add the following server configuration to `.idx/mcp.json` (do not add anything else):
+  ```json
+  {
+      "mcpServers": {
+          "firebase": {
+              "command": "npx",
+              "args": ["-y", "firebase-tools@latest", "experimental:mcp"]
+          }
+      }
+  }
+  ```
+
+### Code Modification, Error Detection & Remediation
+* **Package Management:** Use `npm install` for regular dependencies and `npm install -D` for dev dependencies.
+* **Iterative Flow:** Each time the user requests a change, plan the actionable steps first.
+* **Automated Checks:** After every code modification or dependency change, the AI must automatically:
+  1. Run `eslint . --fix` to check and fix linting violations.
+  2. Monitor IDE diagnostics and terminal output for compilation and runtime errors.
+  3. Attempt to automatically fix detected errors (syntax, type mismatches, unresolved imports, hook misuse).
+  4. If tests were modified, run `npm test`.
+  5. Check the preview server for rendering issues or crashes.
+  6. If an error cannot be automatically resolved, clearly report the specific error message, its location, and a suggested manual intervention.
+
+### Implementation Guidelines
+* **Component Implementation:** The project relies on standard React DOM components and `framer-motion` for animations. **Do not use external UI component libraries** (no MUI, Ant Design, Tailwind CSS, CSS-in-JS, etc.). Implement UI using standard HTML elements.
+* **Styling Strategy**: Use the existing plain CSS files (e.g., `App.css`, `index.css`). Respect and maintain this pattern.
+* **Routing and Navigation:** The application uses state-based conditional rendering for routing and scene transitions. **Do not use external routing libraries** like `react-router-dom`.
+* **State Management:** The project manages state via React's built-in hooks (`useState`, `useEffect`, `useCallback`). **Do not use external global state libraries** like Redux or Zustand.
+* **Accessibility:** Implement accessibility features (A11Y) to empower all users, keeping in mind a wide variety of physical/mental abilities.
+
+### Test Generation & Execution
+* Use **Vitest** as the testing framework and **React Testing Library** for components.
+* Tests should cover different component states, user interactions, and edge cases.
+
 
