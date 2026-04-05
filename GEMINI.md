@@ -50,23 +50,9 @@ A critical function of the AI is to continuously monitor for and automatically r
   * Common React-specific issues such as incorrect hook usage, or invalid component returns.
 * **Problem Reporting:** If an error cannot be automatically resolved (e.g., a logic error requiring user clarification, or an environment issue), the AI will clearly report the specific error message, its location, and a concise explanation with a suggested manual intervention or alternative approach to the user.
 
-## **Modern React Practices**
-
-### **React Compiler**
-
-The AI will leverage the React Compiler for automatic memoization, reducing the need for manual `useMemo` and `useCallback` hooks. This leads to cleaner and more performant code. The AI will assume the compiler is enabled for the project.
-
-### **React Server Components (RSC)**
-
-For projects using a framework that supports RSC (like Next.js), the AI will adopt the following principles:
-
-* **Server-Side Logic:** Components that fetch data or perform server-side logic will be implemented as Server Components.
-* **Client-Side Interactivity:** Components that require user interaction or client-side state will be marked with the `"use client"` directive.
-* **Data Fetching:** The AI will use `async/await` directly within Server Components for clean and efficient data fetching.
-
 ## **Styling**
 
-The AI will use a consistent styling approach, preferring modern solutions like Tailwind CSS or CSS-in-JS libraries (e.g., styled-components, Emotion) if they are already present in the project. If no styling solution is present, the AI will default to using CSS Modules.
+The AI will use a consistent styling approach, using the existing plain CSS files (e.g., `App.css`, `index.css`) that are already present in the project. The AI will respect and maintain this pattern instead of introducing CSS Modules, Tailwind CSS, or CSS-in-JS libraries.
 
 ## **Visual Design**
 
@@ -91,115 +77,17 @@ The AI will use a consistent styling approach, preferring modern solutions like 
 
 ## **Routing and Navigation**
 
-For routing, the AI will use `react-router-dom` as the default.
+The application uses state-based condition rendering for routing and scene transitions. The AI will understand and maintain this state-based manual routing.
 
-* **Basic Routing:**
+## **Component Implementation**
 
-```
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
-```
-
-* **Navigation:**
-
-```
-import { Link, useNavigate } from "react-router-dom";
-
-function MyComponent() {
-  const navigate = useNavigate();
-
-  return (
-    <div>
-      <Link to="/about">About</Link>
-      <button onClick={() => navigate("/")}>Go Home</button>
-    </div>
-  );
-}
-```
-
-## **Component Library Selection**
-
-The AI will assist in selecting and integrating a component library that best fits the project's needs. The following are popular choices that the AI is familiar with:
-
-* **MUI (formerly Material-UI):** A comprehensive suite of components that implement Google's Material Design. Ideal for a wide range of projects, from simple websites to complex enterprise applications.
-* **Ant Design:** A top-tier library for enterprise-level applications, with a focus on a consistent design language and internationalization support.
-* **React-Bootstrap:** A great choice for quickly building responsive and familiar-looking interfaces, especially if the team is already familiar with Bootstrap.
-* **Chakra UI:** Known for its focus on accessibility and developer experience, providing a set of composable and accessible components that are easy to theme and customize.
-* **Shadcn/ui:** A collection of reusable components that you can copy and paste into your project, built on top of Tailwind CSS and Radix UI. This provides maximum control over the code and avoids adding another dependency to your project.
-* **Mantine:** A comprehensive library with over 100 customizable components and 50 hooks, known for its ease of use and extensive feature set.
+The project relies on standard React DOM components and `framer-motion` for animations without an external UI component library (no MUI, Ant Design, etc.). The AI should implement UI using standard HTML elements.
 
 ## **Best Practices for Implementation**
-
-### **Theming and Customization**
-
-* **Favor Theming:** Instead of directly overriding component styles with CSS, the AI will leverage the library's built-in theming capabilities. This leads to more maintainable and consistent styling.
-* **Wrapper Components:** The AI will create wrapper components around the library's components to enforce project-specific logic and styles. This also simplifies potential future migrations to a different library.
-
-### **Performance Optimization**
-
-* **Tree Shaking:** The AI will import only the components that are needed to reduce the application's bundle size.
-* **Lazy Loading:** The AI will use `React.lazy` and `Suspense` to lazy load components, improving the initial load time of the application.
-
-### **Accessibility**
-
-The AI will prioritize using component libraries that follow WAI-ARIA standards to ensure the application is usable by a wider audience.
 
 ### **Code Consistency**
 
 The AI will maintain a consistent coding style and structure throughout the project, including naming conventions and file organization.
-
-## **Example: Using Material-UI**
-
-### **Installation**
-
-```shell
-npm install @mui/material @emotion/react @emotion/styled
-```
-
-### **Theming**
-
-```
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { deepPurple } from '@mui/material/colors';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: deepPurple[500],
-    },
-  },
-});
-
-function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      {/* ... your components */}
-    </ThemeProvider>
-  );
-}
-```
-
-### **Using Components**
-
-```
-import Button from '@mui/material/Button';
-
-function MyComponent() {
-  return <Button variant="contained">Hello World</Button>;
-}
-```
 
 ## **State Management**
 
@@ -207,7 +95,7 @@ The AI will use the simplest appropriate state management solution for the job.
 
 * **Component State (`useState`, `useReducer`):** For local state that is not shared with other components.
 * **Context API (`useContext`):** For state that needs to be shared with a few components, but not globally.
-* **Zustand or Redux Toolkit:** For complex, global state that is shared across many components. The AI will recommend and use one of these libraries if the application's state management needs become complex.
+* The project does not use state management libraries like Zustand or Redux Toolkit. State should be managed via React's built-in hooks.
 
 ## **Test Generation & Execution**
 
