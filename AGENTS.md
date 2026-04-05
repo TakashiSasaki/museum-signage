@@ -108,7 +108,7 @@ The application is deployed to Firebase Hosting.
 ### Firebase Hosting
 - **Project ID**: `museum-signage-37925190-100ae`
 - **Default Deployment URL**: [https://museum-signage-37925190-100ae.web.app](https://museum-signage-37925190-100ae.web.app)
-- **Canonical URL**: [https://museum-signage.moukaeritai.work](https://museum-signage.moukaeritai.work)
+- **Canonical URL**: [https://signage.museum.ehime-u.ac.jp/](https://signage.museum.ehime-u.ac.jp/)
 - **Deployment Command**: `npm run deploy`
 
 

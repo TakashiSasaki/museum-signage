@@ -10,7 +10,7 @@ This skill documents how to deploy the museum-signage application to Firebase Ho
 - **Project ID**: `museum-signage-37925190-100ae`
 - **Hosting Site ID**: `museum-signage-37925190-100ae` (default)
 - **Production URL**: [https://museum-signage-37925190-100ae.web.app](https://museum-signage-37925190-100ae.web.app)
-- **Canonical URL**: [https://museum-signage.moukaeritai.work](https://museum-signage.moukaeritai.work)
+- **Canonical URL**: [https://signage.museum.ehime-u.ac.jp/](https://signage.museum.ehime-u.ac.jp/)
 
 ## Deployment Procedure
 
