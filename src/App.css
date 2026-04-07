@@ -85,25 +85,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5vh;
+  justify-content: center;
+  gap: 0;
   min-width: 0;
-  flex-shrink: 0; /* QR code should remain mostly unscuffed */
-  padding-left: 10px; /* Minimum horizontal separation */
+  flex-shrink: 0;
+  padding: clamp(10px, 2vh, 30px) clamp(10px, 2vw, 30px); /* Increased padding */
+  background-color: #B1A248;
+  margin: 0;
 }
 
 .footer-qr-code {
-  height: clamp(40px, min(10vh, 15vw), 220px);
+  height: clamp(44px, min(11vh, 16.5vw), 242px); /* ~1.1x larger */
   width: auto;
-  border: 2px solid #090a0f;
   padding: 4px;
   background: #fff;
   flex-shrink: 0;
+  margin: clamp(4px, 1vh, 12px) 0; /* Added vertical margin between text and QR */
+  border: none;
 }
 
 .footer-qr-text {
-  color: #333;
+  color: #fff;
   margin: 0;
-  font-size: clamp(9px, min(1.8vh, 2.5vw), 30px);
+  font-size: clamp(5.2px, min(1.3vh, 1.9vw), 29px);
   font-weight: 600;
   text-align: center;
   white-space: nowrap;

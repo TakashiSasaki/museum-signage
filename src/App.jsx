@@ -365,7 +365,9 @@ function App() {
             </div>
           </div>
           <div className="footer-qr-section">
+            <p className="footer-qr-text">愛媛大学ミュージアム</p>
             <img src="qrcode.png" alt="QR Code" className="footer-qr-code" />
+            <p className="footer-qr-text">ポータルサイト</p>
           </div>
         </div>
       </div>
