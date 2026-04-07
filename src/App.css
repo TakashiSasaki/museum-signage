@@ -105,10 +105,10 @@
 }
 
 .footer-qr-text {
-  color: #fff;
+  color: #000;
   margin: 0;
-  font-size: clamp(5.2px, min(1.3vh, 1.9vw), 29px);
-  font-weight: 600;
+  font-size: clamp(8px, min(2vh, 2.8vw), 40px);
+  font-weight: 700;
   text-align: center;
   white-space: nowrap;
 }
