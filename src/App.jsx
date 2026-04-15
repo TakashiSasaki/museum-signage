@@ -185,6 +185,23 @@ const ProgressBar = ({ duration, isPaused, onComplete }) => {
   );
 };
 
+const variants = {
+  enter: (direction) => ({
+    x: direction > 0 ? '100%' : '-100%',
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => ({
+    zIndex: 0,
+    x: direction < 0 ? '100%' : '-100%',
+    opacity: 0,
+  }),
+};
+
 function App() {
   // null = show home screen, 'timeline1'...'timeline4' = show scene playback
   const [currentTimeline, setCurrentTimeline] = useState(null);
