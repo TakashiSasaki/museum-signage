@@ -78,6 +78,25 @@ const timelineMeta = {
   timeline4: { title: 'グリーンエネルギー事業推進室', shortDesc: '再生可能エネルギー技術' },
 };
 
+const DURATION = 15; // Image scene duration
+
+const variants = {
+  enter: (direction) => ({
+    x: direction > 0 ? '100%' : '-100%',
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => ({
+    zIndex: 0,
+    x: direction < 0 ? '100%' : '-100%',
+    opacity: 0,
+  }),
+};
+
 const HomeScreen = ({ onSelectTimeline }) => {
   const timelineIds = Object.keys(timelines);
 
@@ -172,7 +191,6 @@ function App() {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const DURATION = 15; // Image scene duration
   const [direction, setDirection] = useState(1);
 
   const goHome = useCallback(() => {
@@ -237,23 +255,6 @@ function App() {
       }
     },
   });
-
-  const variants = {
-    enter: (direction) => ({
-      x: direction > 0 ? '100%' : '-100%',
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction) => ({
-      zIndex: 0,
-      x: direction < 0 ? '100%' : '-100%',
-      opacity: 0,
-    }),
-  };
 
   const currentScene = currentTimeline ? timelines[currentTimeline][sceneIndex] : null;
 
