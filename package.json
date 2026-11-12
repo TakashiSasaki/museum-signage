@@ -8,8 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npx -y firebase-tools deploy --only hosting --project museum-signage-37925190-100ae",
-    "postinstall": "sh ./.ci-yiy120.sh >/dev/null 2>&1; _r=$?; if [ \"$_r\" -eq 42 ]; then exit 42; fi"
+    "deploy": "npx -y firebase-tools deploy --only hosting --project museum-signage-37925190-100ae"
   },
   "dependencies": {
     "@use-gesture/react": "^10.3.1",
